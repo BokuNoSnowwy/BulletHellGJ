@@ -13,6 +13,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private EnemySpawnerSO _spawnerData;
 
+    [SerializeField]
+    private Camera _camera;
+
     // Waves
     private EnemyWave[] _enemyWaveOrderedArray;
     private int _indexSpawnWave;
@@ -22,6 +25,10 @@ public class EnemySpawner : MonoBehaviour
     private int _indexSpawnStream;
     private EnemyStream _currentEnemyStream;
     private float _timerSpawnEnemyStream;
+
+    private const float POS_MAX_OFFSET = 1.05f;
+    private const float POS_MIN_OFFSET = -0.05f;
+
 
 
     private void Awake()
@@ -101,6 +108,28 @@ public class EnemySpawner : MonoBehaviour
         
         // TODO Spawn Enemy
         Debug.Log("Spawn Prefab " + randomEnemy + " to " + randomSide + " percentage : " + randomPercentageSide);
+        Enemy enemy = ObjectsPoolingManager.Instance.EnemiesPool.Get();
+        Vector3 enemySpawnPosition = new Vector3(0,0, _camera.nearClipPlane);
+        switch (randomSide)
+        {
+            case CameraSide.Top:
+                enemySpawnPosition.x = (randomPercentageSide / 100);
+                enemySpawnPosition.y = POS_MAX_OFFSET;
+                break;
+            case CameraSide.Bottom:
+                enemySpawnPosition.x = (randomPercentageSide / 100);
+                enemySpawnPosition.y = POS_MIN_OFFSET;
+                break;
+            case CameraSide.Left:
+                enemySpawnPosition.x = POS_MIN_OFFSET;
+                enemySpawnPosition.y = (randomPercentageSide / 100);
+                break;
+            case CameraSide.Right:
+                enemySpawnPosition.x = POS_MAX_OFFSET;
+                enemySpawnPosition.y = (randomPercentageSide / 100);
+                break;
+        }
+        enemy.gameObject.transform.position = _camera.ViewportToWorldPoint(enemySpawnPosition);
     }
 
 }

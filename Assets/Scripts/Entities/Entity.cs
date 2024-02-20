@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    [Header("Entity Stats")]
     [SerializeField]
     protected float maxLife;
     [SerializeField]
