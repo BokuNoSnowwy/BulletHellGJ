@@ -1,59 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public GameObject projectilePrefab;
-
-    public float attack;
-    public float attackSpeed;
+    public float attack = 5;
+    public float attackSpeed = 1;
     public int exp;
     public int level;
     public int life;
-    public float lastAttackTime;
+    private float lastAttackTime;
 
-    private bool isAttacking = false; // Indique si le joueur est en train d'attaquer
-    private WaitForSeconds attackCooldown; // Temps d'attente entre chaque attaque
-
-    void Start()
+    void Update()
     {
-        // Initialiser le temps d'attente entre chaque attaque
-        attackCooldown = new WaitForSeconds(1f / attackSpeed);
-
-        // Démarrer l'attaque automatique
-        StartCoroutine(AttackRoutine());
-    }
-
-    // Coroutine pour gérer l'attaque automatique
-    IEnumerator AttackRoutine()
-    {
-        while (true)
+        // Vérifier si le joueur peut attaquer
+        if (Time.time - lastAttackTime >= 1 / attackSpeed)
         {
-            if (!isAttacking)
-            {
-                Attack();
-            }
-            yield return attackCooldown;
+            Attack();
+            lastAttackTime = Time.time;
         }
     }
 
     public void Attack()
     {
-        if (Time.time - lastAttackTime >= 1 / attackSpeed)
+        GameObject projectileInstance = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        ProjectileBehavior projectileBehavior = projectileInstance.GetComponent<ProjectileBehavior>();
+        if (projectileBehavior != null)
         {
-            lastAttackTime = Time.time;
-
-            // Instancier le projectile devant le joueur
-            GameObject projectileInstance = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            // Vous pouvez ajuster la position de l'instance du projectile en fonction de l'orientation du joueur
-
-            // Récupérer le composant du projectile s'il a un script pour lui passer des informations
-            ProjectileBehavior projectileBehavior = projectileInstance.GetComponent<ProjectileBehavior>();
-            if (projectileBehavior != null)
-            {
-                projectileBehavior.SetDamage(attack); // Passer les dégâts du joueur au projectile
-            }
+            projectileBehavior.SetDamage(attack);
         }
     }
 

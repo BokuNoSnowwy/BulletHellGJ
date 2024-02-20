@@ -22,12 +22,12 @@ public class ProjectileBehavior : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Vérifier si le projectile entre en collision avec un ennemi
-        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        /*Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
             // Infliger des dégâts à l'ennemi
             enemy.TakeDamage(damage);
-        }
+        }*/
 
         // Détruire le projectile après la collision
         Destroy(gameObject);
