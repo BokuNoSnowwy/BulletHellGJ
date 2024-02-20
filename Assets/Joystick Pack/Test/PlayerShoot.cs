@@ -10,12 +10,69 @@ public class PlayerWeapon
     public WeaponPlayerSO weaponPlayerSo;
     public float timerMaxShoot;
     public float timerShoot;
+    public int upgradeIndex;
 
     public PlayerWeapon(WeaponPlayerSO weaponPlayerSo, float timerMaxShoot)
     {
         this.weaponPlayerSo = weaponPlayerSo;
-        this.timerMaxShoot = timerMaxShoot;
+        this.timerMaxShoot = this.weaponPlayerSo.baseWeaponReloadTime;
         timerShoot = timerMaxShoot;
+        upgradeIndex = 0;
+    }
+
+    public void SetUpgrade(int index)
+    {
+        upgradeIndex = index;
+    }
+
+    public int GetTotalProjectiles()
+    {
+        int projectilesFromUpgrades = 0;
+        for (int i = 0; i < upgradeIndex; i++)
+        {
+            projectilesFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileToAdd;
+        }
+        return weaponPlayerSo.baseProjectileNb + projectilesFromUpgrades;
+    }
+    
+    public float GetTotalProjectileDamage()
+    {
+        float projectileDmgFromUpgrades = 0;
+        for (int i = 0; i < upgradeIndex; i++)
+        {
+            projectileDmgFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileDmgMultiplier;
+        }
+        return weaponPlayerSo.baseProjectileDmg * (1 + projectileDmgFromUpgrades/100);
+    }
+    
+    public float GetTotalProjectileSpd()
+    {
+        float projectileSpdFromUpgrades = 0;
+        for (int i = 0; i < upgradeIndex; i++)
+        {
+            projectileSpdFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileSpdMultiplier;
+        }
+        return weaponPlayerSo.baseProjectileSpd * (1 + projectileSpdFromUpgrades/100);
+    }
+    
+    public float GetTotalProjectileScale()
+    {
+        float projectileScaleFromUpgrades = 0;
+        for (int i = 0; i < upgradeIndex; i++)
+        {
+            projectileScaleFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileScaleMultiplier;
+        }
+        return 1 * (1 + projectileScaleFromUpgrades/100);
+    }
+
+    public float GetTotalReloadTimer()
+    {
+        float projectileReloadFromUpgrades = 0;
+        for (int i = 0; i < upgradeIndex; i++)
+        {
+            projectileReloadFromUpgrades += weaponPlayerSo.weaponLevelArray[i].weaponReloadMultiplier;
+        }
+        return weaponPlayerSo.baseWeaponReloadTime * (1 - projectileReloadFromUpgrades/100);
     }
 }
 public class PlayerShoot : MonoBehaviour
@@ -55,6 +112,13 @@ public class PlayerShoot : MonoBehaviour
             weapon.timerShoot -= Time.deltaTime;
             if (weapon.timerShoot <= 0)
             {
+                int projectileNb = weapon.GetTotalProjectiles();
+                float projectileDmg = weapon.GetTotalProjectileDamage();
+                float projectileSpd = weapon.GetTotalProjectileSpd();
+                float projectileScale = weapon.GetTotalProjectileScale();
+                
+                //TODO Timer 
+                
                 switch (weapon.weaponPlayerSo.projectileType)
                 {
                     case WeaponProjectileType.EveryDirection :
