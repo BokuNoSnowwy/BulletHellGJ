@@ -6,13 +6,12 @@ public class Player : MonoBehaviour
 {
     public GameObject projectilePrefab;
 
-    private float attack = 5;
-    private float attackSpeed = 1;
-    private int exp = 0;
-    private int level = 0;
-    private int moveSpeed = 5;
-    private int life = 10;
-    private float lastAttackTime = 0f;
+    public float attack;
+    public float attackSpeed;
+    public int exp;
+    public int level;
+    public int life;
+    public float lastAttackTime;
 
     private bool isAttacking = false; // Indique si le joueur est en train d'attaquer
     private WaitForSeconds attackCooldown; // Temps d'attente entre chaque attaque
