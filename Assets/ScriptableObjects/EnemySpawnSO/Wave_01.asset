@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b907da4be82f83246a1bec64ed1c4f9b, type: 3}
+  m_Name: Wave_01
+  m_EditorClassIdentifier: 
+  _sideSpawn: 0
+  _percentageSideSpawn: 100
+  _enemyPrefab: {fileID: 5116122935175720741, guid: 7872194cf58e37b4dbd4368a28ad3f14, type: 3}
