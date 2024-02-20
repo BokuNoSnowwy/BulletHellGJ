@@ -1,7 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+[Serializable]
+public class PlayerWeapon
+{
+    public WeaponPlayerSO weaponPlayerSo;
+    public float timerMaxShoot;
+    public float timerShoot;
+
+    public PlayerWeapon(WeaponPlayerSO weaponPlayerSo, float timerMaxShoot)
+    {
+        this.weaponPlayerSo = weaponPlayerSo;
+        this.timerMaxShoot = timerMaxShoot;
+        timerShoot = timerMaxShoot;
+    }
+}
 public class PlayerShoot : MonoBehaviour
 {
     public GameObject projectilePrefab; 
@@ -19,6 +35,11 @@ public class PlayerShoot : MonoBehaviour
     private bool useShootTarget;
 
     public float detectionRadius = 10f;
+    
+    //new Weapon system
+    private PlayerWeapon[] _playerWeapons = new PlayerWeapon[3];
+    
+    
 
     void Start()
     {
@@ -27,53 +48,76 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
-        if (Time.time - lastShootTime >= shootInterval) 
+        //nearest enemy 
+        
+        foreach (var weapon in _playerWeapons)
         {
-            if (useShootA)
+            weapon.timerShoot -= Time.deltaTime;
+            if (weapon.timerShoot <= 0)
             {
-                Shoot();
-            }
-            if (useShoot360)
-            {
-                Shoot360();
-            }
-            if (useShootTarget)
-            {
-                // Détection des ennemis les plus proches
-                Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
-
-                GameObject nearestEnemy = null;
-                float nearestDistance = Mathf.Infinity;
-
-                foreach (Collider col in colliders)
+                switch (weapon.weaponPlayerSo.projectileType)
                 {
-                    // Vérifiez si le collider appartient à un ennemi
-                    if (col.CompareTag("Enemy"))
-                    {
-
-                        float distanceToEnemy = Vector3.Distance(transform.position, col.transform.position);
-                        if (distanceToEnemy < nearestDistance)
-                        {
-                            nearestEnemy = col.gameObject;
-                            nearestDistance = distanceToEnemy;
-                        }
-                    }
+                    case WeaponProjectileType.EveryDirection :
+                        //TODO Get the number of projectile and divide it from 360 degres 
+                        break;
+                    case WeaponProjectileType.FollowPlayerDirection : 
+                        //TODO Multiple projectiles in a row (intern timers)
+                        break;
+                    case WeaponProjectileType.TargetAtNearestEnemy : 
+                        //TODO Multiple projectiles in a row (intern timers)    
+                        break;
                 }
-
-                // Tirer sur l'ennemi le plus proche
-                if (nearestEnemy != null)
-                {
-                    ShootAt(nearestEnemy.transform.position);
-                }
+                weapon.timerShoot = weapon.timerMaxShoot;
             }
-
-            lastShootTime = Time.time; 
         }
+        
+        // if (Time.time - lastShootTime >= shootInterval) 
+        // {
+        //     if (useShootA)
+        //     {
+        //         Shoot();
+        //     }
+        //     if (useShoot360)
+        //     {
+        //         Shoot360();
+        //     }
+        //     if (useShootTarget)
+        //     {
+        //         // Dï¿½tection des ennemis les plus proches
+        //         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
+        //
+        //         GameObject nearestEnemy = null;
+        //         float nearestDistance = Mathf.Infinity;
+        //
+        //         foreach (Collider col in colliders)
+        //         {
+        //             // Vï¿½rifiez si le collider appartient ï¿½ un ennemi
+        //             if (col.CompareTag("Enemy"))
+        //             {
+        //
+        //                 float distanceToEnemy = Vector3.Distance(transform.position, col.transform.position);
+        //                 if (distanceToEnemy < nearestDistance)
+        //                 {
+        //                     nearestEnemy = col.gameObject;
+        //                     nearestDistance = distanceToEnemy;
+        //                 }
+        //             }
+        //         }
+        //
+        //         // Tirer sur l'ennemi le plus proche
+        //         if (nearestEnemy != null)
+        //         {
+        //             ShootAt(nearestEnemy.transform.position);
+        //         }
+        //     }
+        //
+        //     lastShootTime = Time.time; 
+        // }
 
         
     }
 
-    // Méthode pour tirer pour le shoot "Arme qui tire en direction du Joystick"
+    // Mï¿½thode pour tirer pour le shoot "Arme qui tire en direction du Joystick"
     void Shoot()
     {
         
@@ -96,7 +140,7 @@ public class PlayerShoot : MonoBehaviour
 
     public int numProjectiles = 10; 
 
-    // Méthode pour tirer pour le shoot "Arme qui tire dans une direction fixe"
+    // Mï¿½thode pour tirer pour le shoot "Arme qui tire dans une direction fixe"
     public void Shoot360()
     {
 
@@ -126,19 +170,19 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    // Méthode pour tirer pour le shoot "Arme qui tire sur les ennemis proches"
+    // Mï¿½thode pour tirer pour le shoot "Arme qui tire sur les ennemis proches"
     void ShootAt(Vector3 targetPosition)
     {
-        // Créer une instance du projectile à partir de la préfabriquée à la position du joueur
+        // Crï¿½er une instance du projectile ï¿½ partir de la prï¿½fabriquï¿½e ï¿½ la position du joueur
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(-90f, 0f, 0f));
 
         // Calculer la direction du tir
         Vector3 shootDirection = (targetPosition - transform.position).normalized;
 
-        // Récupérer le Rigidbody du projectile
+        // Rï¿½cupï¿½rer le Rigidbody du projectile
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-        // Appliquer la vélocité au projectile dans la direction du tir
+        // Appliquer la vï¿½locitï¿½ au projectile dans la direction du tir
         if (rb != null)
         {
             rb.velocity = shootDirection * projectileSpeed;
