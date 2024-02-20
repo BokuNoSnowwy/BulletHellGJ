@@ -31,13 +31,9 @@ public class ObjectsPoolingManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-    }
-
-    void Start()
-    {
-        playerProjectilesPool = new ObjectPool<GameObject>(CreatePlayerProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
-        enemyProjectilesPool = new ObjectPool<GameObject>(CreateEnnemyProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
-        enemyProjectilesPool = new ObjectPool<GameObject>(CreateEnemiesObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 100, 300);
+        if (playerProjectilePrefab != null) playerProjectilesPool = new ObjectPool<GameObject>(CreatePlayerProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
+        if (enemyProjectilePrefab != null) enemyProjectilesPool = new ObjectPool<GameObject>(CreateEnnemyProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
+        if (enemyPrefab != null) enemiesPool = new ObjectPool<GameObject>(CreateEnemiesObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 100, 300);
     }
 
     #region ObjectCreation

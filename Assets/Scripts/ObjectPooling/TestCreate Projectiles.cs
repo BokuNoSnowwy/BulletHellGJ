@@ -8,8 +8,9 @@ public class TestCreateProjectiles : MonoBehaviour
     void Start()
     {
         // Utilisation ObjectPool
-        /*GameObject obj = ObjectsPoolingManager.Instance.PlayerProjectilesPool.Get();
-        ObjectsPoolingManager.Instance.PlayerProjectilesPool.Release(obj);*/
+        /*GameObject spawnedEnemy = ObjectsPoolingManager.Instance.EnemiesPool.Get();
+
+        ObjectsPoolingManager.Instance.PlayerProjectilesPool.Release(spawnedEnemy);*/
 
     }
 
