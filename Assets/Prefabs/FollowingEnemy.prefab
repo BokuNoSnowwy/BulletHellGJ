@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 10
-  movementSpeed: 5
+  movementSpeed: 2
   attackDamage: 5
   _sprite: {fileID: 2085347310772824424}
   _xpPrefab: {fileID: 0}
-  timerMaxImmunityPlayer: 0.1
+  _timerMaxImmunityPlayer: 0
 --- !u!61 &5777831724512637808
 BoxCollider2D:
   m_ObjectHideFlags: 0

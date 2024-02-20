@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Enemy : Entity
 {
+    [Header("Enemy Stats")]
     public float attackDamage = 5;
 
     [SerializeField]
@@ -13,31 +15,16 @@ public class Enemy : Entity
     [SerializeField]
     private GameObject _xpPrefab;   
     [SerializeField]
-    private float timerMaxImmunityPlayer;
-    private float timerImmunityPlayer;
-    private bool canDamagePlayer;
+    private float _timerMaxImmunityPlayer;
+    private float _timerImmunityPlayer;
+    private bool _canDamagePlayer;
 
     protected Player _player;
     private GameManager _gameManager;
-
-    //Keep the enemy from damaging player every tick
-    [SerializeField]
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Initialization();
-    }
-
+    
     protected void Initialization()
     {
         _gameManager = GameManager.Instance;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Tick();
     }
 
     protected void Tick()
@@ -47,17 +34,16 @@ public class Enemy : Entity
             return;
         }
 
-        if (!canDamagePlayer)
+        if (!_canDamagePlayer)
         {
-            timerImmunityPlayer -= Time.deltaTime;
-            if (timerImmunityPlayer <= 0)
+            _timerImmunityPlayer -= Time.deltaTime;
+            if (_timerImmunityPlayer <= 0)
             {
-                canDamagePlayer = true;
+                _canDamagePlayer = true;
             }
         }
     }
-    
-    
+
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
@@ -71,12 +57,12 @@ public class Enemy : Entity
         ObjectsPoolingManager.Instance.EnemiesPool.Release(gameObject);
     }
 
-    protected void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         CheckCollisionPlayer(col);
     }
 
-    protected void OnTriggerStay2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         CheckCollisionPlayer(col);
     }
@@ -84,13 +70,12 @@ public class Enemy : Entity
     private void TouchPlayer()
     {
         _player.TakeDamage(attackDamage);
-        timerImmunityPlayer = timerMaxImmunityPlayer;
-        canDamagePlayer = false;
+        _timerImmunityPlayer = _timerMaxImmunityPlayer;
+        _canDamagePlayer = false;
     }
 
     private void CheckCollisionPlayer(Collider2D col)
     {
-        Debug.LogError("CheckCollisionPlayer");
         if (!col.gameObject.CompareTag("Player"))
         {
             return;
@@ -101,7 +86,7 @@ public class Enemy : Entity
             _player = col.gameObject.GetComponent<Player>();
         }
         
-        if (canDamagePlayer)
+        if (_canDamagePlayer)
         {
             TouchPlayer();
         }
