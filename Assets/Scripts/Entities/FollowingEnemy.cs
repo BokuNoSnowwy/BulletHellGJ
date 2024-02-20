@@ -7,7 +7,6 @@ public class FollowingEnemy : Enemy
     void Start()
     {
         Initialization();
-        _player = Player.Instance;
     }
     
     // Update is called once per frame

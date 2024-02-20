@@ -29,8 +29,10 @@ public class Enemy : Entity
         _gameManager.AddGameStateChangeListener(ChangeGameState);
     }
 
+
     public void OnTakenFromPool()
     {
+        _player = Player.Instance;
         gameObject.SetActive(true);
         //Debug.Log("Enemy spawned");
     }
