@@ -163,7 +163,10 @@ public class CameraManager : MonoBehaviour
         Gizmos.color = Color.red;
 
         //debug cube to see world border size
-        Gizmos.DrawWireCube(WorldOrigin, WorldSize);
+        if (UseSpriteForBounds == false)
+        {
+            Gizmos.DrawWireCube(WorldOrigin, WorldSize);
+        }
     }
 }
 #endregion 
