@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum GameState{
     Pause,
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     
     private GameState _gameState;
     private float _timerGame;
+    private UnityEvent<GameState> _onGameStateChanged;
 
     private void Awake()
     {
@@ -49,6 +51,12 @@ public class GameManager : MonoBehaviour
     public void SetGameState(GameState gameState)
     {
         _gameState = gameState;
+        _onGameStateChanged.Invoke(gameState);
+    }
+
+    public void AddGameStateChangeListener(UnityAction<GameState> action)
+    {
+        _onGameStateChanged.AddListener(action);
     }
 
     public float TimerGame => _timerGame;

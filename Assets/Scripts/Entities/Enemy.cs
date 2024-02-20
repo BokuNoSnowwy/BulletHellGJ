@@ -21,15 +21,17 @@ public class Enemy : Entity
 
     protected Player _player;
     private GameManager _gameManager;
+    private GameState _gameState;
     
     protected void Initialization()
     {
         _gameManager = GameManager.Instance;
+        _gameManager.AddGameStateChangeListener(ChangeGameState);
     }
 
     protected void Tick()
     {
-        if (_gameManager.GameState != GameState.Game)
+        if (_gameState != GameState.Game)
         {
             return;
         }
@@ -47,6 +49,11 @@ public class Enemy : Entity
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+    }
+
+    private void ChangeGameState(GameState gameState)
+    {
+        _gameState = gameState;
     }
 
     protected override void Die()
