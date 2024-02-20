@@ -19,7 +19,6 @@ public class CameraManagerEditor : Editor
 
     SerializedProperty useSprite;
 
-    bool show = false;
     private void OnEnable()
     {
         camera = serializedObject.FindProperty("_camera");
