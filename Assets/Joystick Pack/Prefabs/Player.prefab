@@ -155,6 +155,12 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   shootPoint: {fileID: 7285212325026804097}
   projectileSpeed: 10
+  shootInterval: 4
+  useShootA: 0
+  useShoot360: 0
+  useShootTarget: 1
+  detectionRadius: 10
+  numProjectiles: 10
 --- !u!114 &8579925238672429770
 MonoBehaviour:
   m_ObjectHideFlags: 0
