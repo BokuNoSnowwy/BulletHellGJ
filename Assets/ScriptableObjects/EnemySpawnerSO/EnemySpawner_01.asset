@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af55cc952d86c542b2a97a3ddf8b338, type: 3}
+  m_Name: EnemySpawner_01
+  m_EditorClassIdentifier: 
+  _wavesArray:
+  - timerSpawn: 10
+    enemyWaveArray:
+    - {fileID: 11400000, guid: 0994f90e2520ba84daffa013eced54ce, type: 2}
+  - timerSpawn: 20
+    enemyWaveArray:
+    - {fileID: 11400000, guid: 35ddc0a74e5d63e41b882edda9df6cdd, type: 2}
+  - timerSpawn: 25
+    enemyWaveArray:
+    - {fileID: 11400000, guid: 4168197daf9066f4c863b82c80c8de61, type: 2}
+  _enemyStreamArray:
+  - timerEndSpawn: 20
+    timerMinSpawn: 0.5
+    timerMaxSpawn: 1.5
+    enemyTypeArray:
+    - {fileID: 5116122935175720741, guid: 7872194cf58e37b4dbd4368a28ad3f14, type: 3}
+    - {fileID: 5116122935175720741, guid: 2016d77fef211c44eaccd42ade133be6, type: 3}
+    - {fileID: 5116122935175720741, guid: 08df923b216604743bc7754f39b5d910, type: 3}
