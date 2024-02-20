@@ -10,15 +10,15 @@ public class ObjectsPoolingManager : MonoBehaviour
 
     [SerializeField] private GameObject playerProjectilePrefab;
     [SerializeField] private GameObject enemyProjectilePrefab;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private Enemy enemyPrefab;
 
     private ObjectPool<GameObject> playerProjectilesPool;
     private ObjectPool<GameObject> enemyProjectilesPool;
-    private ObjectPool<GameObject> enemiesPool;
+    private ObjectPool<Enemy> enemiesPool;
 
     public ObjectPool<GameObject> PlayerProjectilesPool { get { return playerProjectilesPool; } }
     public ObjectPool<GameObject> EnemyProjectilesPool { get { return enemyProjectilesPool; } }
-    public ObjectPool<GameObject> EnemiesPool { get { return enemiesPool; } }
+    public ObjectPool<Enemy> EnemiesPool { get { return enemiesPool; } }
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class ObjectsPoolingManager : MonoBehaviour
         }
         if (playerProjectilePrefab != null) playerProjectilesPool = new ObjectPool<GameObject>(CreatePlayerProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
         if (enemyProjectilePrefab != null) enemyProjectilesPool = new ObjectPool<GameObject>(CreateEnnemyProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
-        if (enemyPrefab != null) enemiesPool = new ObjectPool<GameObject>(CreateEnemiesObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 100, 300);
+        if (enemyPrefab != null) enemiesPool = new ObjectPool<Enemy>(CreateEnemiesObject, OnTakeEnemyFromPool, OnReturnedEnemyToPool, OnDestroyEnemyPoolObject, true, 100, 300);
     }
 
     #region ObjectCreation
@@ -45,9 +45,11 @@ public class ObjectsPoolingManager : MonoBehaviour
     {
         return CreateObjectFromList(enemyProjectilePrefab);
     }
-    private GameObject CreateEnemiesObject()
+    private Enemy CreateEnemiesObject()
     {
-        return CreateObjectFromList(enemyPrefab);
+        Enemy newEnemy = Instantiate(enemyPrefab);
+        newEnemy.gameObject.SetActive(false);
+        return newEnemy;
     }
 
     private GameObject CreateObjectFromList(GameObject gameObject)
@@ -68,5 +70,19 @@ public class ObjectsPoolingManager : MonoBehaviour
     void OnDestroyPoolObject(GameObject gObject)
     {
         Destroy(gObject);
+    }
+
+    void OnReturnedEnemyToPool(Enemy enemy)
+    {
+        enemy.gameObject.SetActive(false);
+    }
+    void OnTakeEnemyFromPool(Enemy enemy)
+    {
+        //enemy.gameObject.SetActive(true);
+        enemy.OnTakenFromPool();
+    }
+    void OnDestroyEnemyPoolObject(Enemy enemy)
+    {
+        Destroy(enemy.gameObject);
     }
 }

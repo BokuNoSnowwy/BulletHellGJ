@@ -40,6 +40,12 @@ public class Enemy : Entity
         Tick();
     }
 
+    public void OnTakenFromPool()
+    {
+        gameObject.SetActive(true);
+        //Debug.Log("Enemy spawned");
+    }
+
     protected void Tick()
     {
         if (_gameManager.GameState != GameState.Game)
@@ -68,7 +74,7 @@ public class Enemy : Entity
         //TODO Disable enemy controller
         //TODO Death animation 
         //TODO Drop XP
-        ObjectsPoolingManager.Instance.EnemiesPool.Release(gameObject);
+        ObjectsPoolingManager.Instance.EnemiesPool.Release(this);
     }
 
     protected void OnTriggerEnter2D(Collider2D col)
