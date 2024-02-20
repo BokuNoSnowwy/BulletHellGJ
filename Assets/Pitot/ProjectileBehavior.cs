@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-    private float damage = 0; // DÈg‚ts infligÈs par le projectile
+    private float damage = 0; // D√©g√¢ts inflig√©s par le projectile
     private float speed = 10f; // Vitesse du projectile
 
-    // MÈthode pour dÈfinir les dÈg‚ts du projectile
+    // M√©thode pour d√©finir les d√©g√¢ts du projectile
     public void SetDamage(float newDamage)
     {
         damage = newDamage;
@@ -15,21 +15,21 @@ public class ProjectileBehavior : MonoBehaviour
 
     void Update()
     {
-        // DÈplacer le projectile vers l'avant
+        // D√©placer le projectile vers l'avant
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // VÈrifier si le projectile entre en collision avec un ennemi
+        // V√©rifier si le projectile entre en collision avec un ennemi
         /*Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
-            // Infliger des dÈg‚ts ‡ l'ennemi
+            // Infliger des d√©g√¢ts √† l'ennemi
             enemy.TakeDamage(damage);
         }*/
 
-        // DÈtruire le projectile aprËs la collision
+        // D√©truire le projectile apr√®s la collision
         Destroy(gameObject);
     }
 }
