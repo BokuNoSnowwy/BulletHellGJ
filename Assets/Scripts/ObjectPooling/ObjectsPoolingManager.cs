@@ -8,16 +8,16 @@ public class ObjectsPoolingManager : MonoBehaviour
 
     public static ObjectsPoolingManager Instance;
 
-    [SerializeField] private GameObject playerProjectilePrefab;
-    [SerializeField] private GameObject enemyProjectilePrefab;
+    [SerializeField] private PlayerProjectile playerProjectilePrefab;
+    [SerializeField] private EnemyProjectile enemyProjectilePrefab;
     [SerializeField] private Enemy enemyPrefab;
 
-    private ObjectPool<GameObject> playerProjectilesPool;
-    private ObjectPool<GameObject> enemyProjectilesPool;
+    private ObjectPool<PlayerProjectile> playerProjectilesPool;
+    private ObjectPool<EnemyProjectile> enemyProjectilesPool;
     private ObjectPool<Enemy> enemiesPool;
 
-    public ObjectPool<GameObject> PlayerProjectilesPool { get { return playerProjectilesPool; } }
-    public ObjectPool<GameObject> EnemyProjectilesPool { get { return enemyProjectilesPool; } }
+    public ObjectPool<PlayerProjectile> PlayerProjectilesPool { get { return playerProjectilesPool; } }
+    public ObjectPool<EnemyProjectile> EnemyProjectilesPool { get { return enemyProjectilesPool; } }
     public ObjectPool<Enemy> EnemiesPool { get { return enemiesPool; } }
 
     private void Awake()
@@ -31,20 +31,26 @@ public class ObjectsPoolingManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        if (playerProjectilePrefab != null) playerProjectilesPool = new ObjectPool<GameObject>(CreatePlayerProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
-        if (enemyProjectilePrefab != null) enemyProjectilesPool = new ObjectPool<GameObject>(CreateEnnemyProjectileObject, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, true, 5000);
+        if (playerProjectilePrefab != null) playerProjectilesPool = new ObjectPool<PlayerProjectile>(CreatePlayerProjectileObject, OnTakePlayerProjectileFromPool, OnReturnedPlayerProjectileToPool, OnDestroyPlayerProjectilePoolObject, true, 200);
+        if (enemyProjectilePrefab != null) enemyProjectilesPool = new ObjectPool<EnemyProjectile>(CreateEnemyProjectileObject, OnTakeEnemyProjectileFromPool, OnReturnedEnemyProjectileToPool, OnDestroyEnemyProjectilePoolObject, true, 100);
         if (enemyPrefab != null) enemiesPool = new ObjectPool<Enemy>(CreateEnemiesObject, OnTakeEnemyFromPool, OnReturnedEnemyToPool, OnDestroyEnemyPoolObject, true, 100, 300);
     }
 
     #region ObjectCreation
-    private GameObject CreatePlayerProjectileObject()
+    private PlayerProjectile CreatePlayerProjectileObject()
     {
-        return CreateObjectFromList(playerProjectilePrefab);
+        PlayerProjectile newProjectile = Instantiate(playerProjectilePrefab);
+        newProjectile.gameObject.SetActive(false);
+        return newProjectile;
     }
-    private GameObject CreateEnnemyProjectileObject()
+    
+    private EnemyProjectile CreateEnemyProjectileObject()
     {
-        return CreateObjectFromList(enemyProjectilePrefab);
+        EnemyProjectile newProjectile = Instantiate(enemyProjectilePrefab);
+        newProjectile.gameObject.SetActive(false);
+        return newProjectile;
     }
+    
     private Enemy CreateEnemiesObject()
     {
         Enemy newEnemy = Instantiate(enemyPrefab);
@@ -71,7 +77,40 @@ public class ObjectsPoolingManager : MonoBehaviour
     {
         Destroy(gObject);
     }
+    
+    // Player Projectile
+    
+    void OnReturnedPlayerProjectileToPool(PlayerProjectile projectile)
+    {
+        projectile.gameObject.SetActive(false);
+    }
+    void OnTakePlayerProjectileFromPool(PlayerProjectile projectile)
+    {
+        //enemy.gameObject.SetActive(true);
+        projectile.OnTakenFromPool();
+    }
+    void OnDestroyPlayerProjectilePoolObject(PlayerProjectile projectile)
+    {
+        Destroy(projectile.gameObject);
+    }
+    
+    // Enemy Projectile
+    
+    void OnReturnedEnemyProjectileToPool(EnemyProjectile projectile)
+    {
+        projectile.gameObject.SetActive(false);
+    }
+    void OnTakeEnemyProjectileFromPool(EnemyProjectile projectile)
+    {
+        //enemy.gameObject.SetActive(true);
+        projectile.OnTakenFromPool();
+    }
+    void OnDestroyEnemyProjectilePoolObject(EnemyProjectile projectile)
+    {
+        Destroy(projectile.gameObject);
+    }
 
+    // Enemy
     void OnReturnedEnemyToPool(Enemy enemy)
     {
         enemy.gameObject.SetActive(false);

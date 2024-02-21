@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour
 {
-    public float pickupRadius = 2f; // Le rayon de détection des objets ramassables
+    public float pickupRadius = 2f; // Le rayon de dÃ©tection des objets ramassables
 
     void Update()
     {
-        // Détection des objets ramassables
+        // DÃ©tection des objets ramassables
         Collider[] colliders = Physics.OverlapSphere(transform.position, pickupRadius);
 
         GameObject nearestPickup = null;
@@ -16,7 +16,7 @@ public class PlayerPickup : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            // Vérifie si le collider appartient à un objet ramassable
+            // VÃ©rifie si le collider appartient Ã  un objet ramassable
             if (col.CompareTag("Pickup"))
             {
                 float distanceToPickup = Vector3.Distance(transform.position, col.transform.position);
@@ -37,8 +37,8 @@ public class PlayerPickup : MonoBehaviour
 
     void PickupItem(GameObject item)
     {
-        // Effectuer l'action de ramassage appropriée
-        // Par exemple, vous pouvez ajouter de l'XP au joueur ou restaurer sa santé
+        // Effectuer l'action de ramassage appropriÃ©e
+        // Par exemple, vous pouvez ajouter de l'XP au joueur ou restaurer sa santÃ©
         Debug.Log("je suis du " + item.name);
 
 

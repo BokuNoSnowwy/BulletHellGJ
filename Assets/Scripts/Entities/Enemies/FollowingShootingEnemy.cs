@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FollowingShootingEnemy : Enemy
 {
+    [FormerlySerializedAs("_bulletPrefab")]
     [Header("Bullet")]
     [SerializeField] 
-    private GameObject _bulletPrefab;
+    private EnemyProjectile _projectilePrefab;
+    [SerializeField] 
+    private float _projectileDmg;
+    [SerializeField] 
+    private float _projectileSpd;
+    [SerializeField] 
+    private float _projectileScale;
     [SerializeField] 
     private float _distanceShoot;
     [SerializeField] 
@@ -57,11 +65,9 @@ public class FollowingShootingEnemy : Enemy
     void Shoot(Vector3 target)
     {
         _canShootTowardPlayer = false;
-        Debug.Log("Instanciate Bullet ");
-        
-        //TODO Pooling of the bullet
-        //TODO Setup direction toward player
-        
+        EnemyProjectile enemyProjectile = _poolingManager.EnemyProjectilesPool.Get();
+        enemyProjectile.transform.rotation = Quaternion.LookRotation(target);
+        enemyProjectile.SetupProjectile(_projectileDmg, _projectileSpd);
     }
 
     

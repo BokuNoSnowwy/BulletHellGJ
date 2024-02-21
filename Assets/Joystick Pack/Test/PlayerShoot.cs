@@ -8,16 +8,14 @@ using UnityEngine.Serialization;
 public class PlayerWeapon
 {
     public WeaponPlayerSO weaponPlayerSo;
-    public float timerMaxShoot;
     public float timerShoot;
     public int upgradeIndex;
 
-    public PlayerWeapon(WeaponPlayerSO weaponPlayerSo, float timerMaxShoot)
+    public PlayerWeapon(WeaponPlayerSO weaponPlayerSo)
     {
         this.weaponPlayerSo = weaponPlayerSo;
-        this.timerMaxShoot = this.weaponPlayerSo.baseWeaponReloadTime;
-        timerShoot = timerMaxShoot;
         upgradeIndex = 0;
+        timerShoot = GetTotalReloadTimer();
     }
 
     public void SetUpgrade(int index)
@@ -74,33 +72,43 @@ public class PlayerWeapon
         }
         return weaponPlayerSo.baseWeaponReloadTime * (1 - projectileReloadFromUpgrades/100);
     }
+
+    public GameObject GetProjectilePrefab()
+    {
+        return weaponPlayerSo.weaponLevelArray[upgradeIndex].projectilePrefab;
+    }
 }
 public class PlayerShoot : MonoBehaviour
 {
+    [HideInInspector]
     public GameObject projectilePrefab; 
+    [HideInInspector]
     public Transform shootPoint; 
+    [HideInInspector]
     public float projectileSpeed = 10f;
+    [HideInInspector]
     public float shootInterval = 4f; 
 
     private float lastShootTime;
-
-    [SerializeField]
+    
     private bool useShootA;
-    [SerializeField]
     private bool useShoot360;
-    [SerializeField]
     private bool useShootTarget;
 
+    [HideInInspector]
     public float detectionRadius = 10f;
     
     //new Weapon system
+    [SerializeField]
     private PlayerWeapon[] _playerWeapons = new PlayerWeapon[3];
-    
+
+    private ObjectsPoolingManager _poolingManager;
     
 
     void Start()
     {
         lastShootTime = -shootInterval; 
+        _poolingManager = ObjectsPoolingManager.Instance;
     }
 
     void Update()
@@ -116,13 +124,19 @@ public class PlayerShoot : MonoBehaviour
                 float projectileDmg = weapon.GetTotalProjectileDamage();
                 float projectileSpd = weapon.GetTotalProjectileSpd();
                 float projectileScale = weapon.GetTotalProjectileScale();
-                
+
                 //TODO Timer 
                 
                 switch (weapon.weaponPlayerSo.projectileType)
                 {
                     case WeaponProjectileType.EveryDirection :
                         //TODO Get the number of projectile and divide it from 360 degres 
+                        for (int i = 0; i < projectileNb; i++)
+                        {
+                            PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
+                            playerProjectile.transform.rotation = Quaternion.Euler(0,0,(360/projectileNb) * i);
+                            playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
+                        }
                         break;
                     case WeaponProjectileType.FollowPlayerDirection : 
                         //TODO Multiple projectiles in a row (intern timers)
@@ -131,7 +145,8 @@ public class PlayerShoot : MonoBehaviour
                         //TODO Multiple projectiles in a row (intern timers)    
                         break;
                 }
-                weapon.timerShoot = weapon.timerMaxShoot;
+
+                weapon.timerShoot = weapon.GetTotalReloadTimer();
             }
         }
         

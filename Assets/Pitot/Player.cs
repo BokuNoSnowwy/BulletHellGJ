@@ -5,9 +5,6 @@ using UnityEngine.Serialization;
 public class Player : Entity
 {
     public static Player Instance;
-    
-    public GameObject projectilePrefab;
-    //public float attack = 5;
 
     public int exp;
     public int level;
@@ -38,22 +35,7 @@ public class Player : Entity
     }
     void Update()
     {
-        // V�rifier si le joueur peut attaquer
-        // if (Time.time - lastAttackTime >= 1 / attackSpeedMultiplier)
-        // {
-        //     Attack();
-        //     lastAttackTime = Time.time;
-        // }
-    }
 
-    public void Attack()
-    {
-        GameObject projectileInstance = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        ProjectileBehavior projectileBehavior = projectileInstance.GetComponent<ProjectileBehavior>();
-        if (projectileBehavior != null)
-        {
-            //projectileBehavior.SetDamage(attack);
-        }
     }
 
     public void GainExp(int amount)

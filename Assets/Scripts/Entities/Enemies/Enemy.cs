@@ -20,12 +20,14 @@ public class Enemy : Entity
     private bool _canDamagePlayer;
 
     protected Player _player;
+    protected ObjectsPoolingManager _poolingManager;
     private GameManager _gameManager;
     private GameState _gameState;
     
     protected void Initialization()
     {
         _gameManager = GameManager.Instance;
+        _poolingManager = ObjectsPoolingManager.Instance;
         _gameManager.AddGameStateChangeListener(ChangeGameState);
     }
 
@@ -67,7 +69,7 @@ public class Enemy : Entity
         //TODO Disable enemy controller
         //TODO Death animation 
         //TODO Drop XP
-        ObjectsPoolingManager.Instance.EnemiesPool.Release(this);
+        _poolingManager.EnemiesPool.Release(this);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

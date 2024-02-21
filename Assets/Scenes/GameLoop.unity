@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 32062993}
   - component: {fileID: 32062996}
   - component: {fileID: 32062997}
+  - component: {fileID: 32062998}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -157,7 +158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   movementSpeed: 5
-  projectilePrefab: {fileID: 0}
   exp: 0
   level: 0
   attackSpeedMultiplier: 1
@@ -291,6 +291,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &32062998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32062992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471e007e6b5565d498fd7d2a50b22bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 0}
+  shootPoint: {fileID: 0}
+  projectileSpeed: 10
+  shootInterval: 4
+  detectionRadius: 10
+  _playerWeapons:
+  - weaponPlayerSo: {fileID: 11400000, guid: af538b6f1560e3144baab2211e20c342, type: 2}
+    timerShoot: 2
+    upgradeIndex: 0
+  numProjectiles: 10
 --- !u!1 &45276976
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,14 +409,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6410474748231449637, guid: 7872194cf58e37b4dbd4368a28ad3f14, type: 3}
-      propertyPath: movementSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9065380038719853301, guid: 7872194cf58e37b4dbd4368a28ad3f14, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -431,6 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 45276977}
   _spawnerData: {fileID: 11400000, guid: 0dc32669a65b0644ab0211e1face5746, type: 2}
+  _camera: {fileID: 0}
 --- !u!4 &1098141490
 Transform:
   m_ObjectHideFlags: 0
@@ -603,6 +618,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5317957978233692981, guid: 08df923b216604743bc7754f39b5d910, type: 3}
+      propertyPath: _projectileDmg
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5317957978233692981, guid: 08df923b216604743bc7754f39b5d910, type: 3}
+      propertyPath: _projectileSpd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5317957978233692981, guid: 08df923b216604743bc7754f39b5d910, type: 3}
+      propertyPath: _projectileScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5317957978233692981, guid: 08df923b216604743bc7754f39b5d910, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 599466651576664928, guid: e26065c2903c86d4d9b7f3f2fb5f7b71, type: 3}
     - target: {fileID: 5116122935175720741, guid: 08df923b216604743bc7754f39b5d910, type: 3}
       propertyPath: m_Name
       value: FollowingShootingEnemy
