@@ -46,6 +46,7 @@ public class Enemy : Entity
 
         if (!_canDamagePlayer)
         {
+            
             _timerImmunityPlayer -= Time.deltaTime;
             if (_timerImmunityPlayer <= 0)
             {
@@ -69,6 +70,8 @@ public class Enemy : Entity
         //TODO Disable enemy controller
         //TODO Death animation 
         //TODO Drop XP
+        ExperiencePoint expPoint = ObjectsPoolingManager.Instance.ExpPool.Get();
+        expPoint.transform.position = transform.position;
         ObjectsPoolingManager.Instance.EnemiesPool.Release(this);
     }
 
@@ -96,7 +99,7 @@ public class Enemy : Entity
             return;
         }
         
-        if (_player = null)
+        if (_player == null)
         {
             _player = col.gameObject.GetComponent<Player>();
         }
@@ -104,6 +107,7 @@ public class Enemy : Entity
         if (_canDamagePlayer)
         {
             TouchPlayer();
+            
         }
     }
 }
