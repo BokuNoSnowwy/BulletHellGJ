@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponSprite: {fileID: 0}
   weaponDescription: 
   projectileType: 2
-  baseProjectileNb: 4
+  baseProjectileNb: 8
   baseProjectileDmg: 5
   baseProjectileSpd: 2
   baseWeaponReloadTime: 2

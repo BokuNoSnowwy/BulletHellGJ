@@ -35,11 +35,14 @@ public class FollowingShootingEnemy : Enemy
         Tick();
         
         // Flip update
-        _sprite.flipX = _player.transform.position.x < transform.position.x;
-
+        if (_player != null)
+        {
+            _sprite.flipX = _player.transform.position.x < transform.position.x;
+        }
+        
         Vector3 playerPos = _player.transform.position;
         Vector3 playerDir = playerPos - transform.position;
-        transform.Translate(playerDir.normalized * movementSpeed * Time.deltaTime);
+        transform.Translate(playerDir.normalized * _movementSpeed * Time.deltaTime);
 
         // Shooting reload
         if (!_canShootTowardPlayer)
@@ -66,9 +69,16 @@ public class FollowingShootingEnemy : Enemy
     {
         _canShootTowardPlayer = false;
         EnemyProjectile enemyProjectile = _poolingManager.EnemyProjectilesPool.Get();
-        enemyProjectile.transform.rotation = Quaternion.LookRotation(target);
+        enemyProjectile.transform.position = transform.position;
+        enemyProjectile.transform.rotation = Quaternion.Euler(0, 0, PointRightAtTarget(target));
         enemyProjectile.SetupProjectile(_projectileDmg, _projectileSpd);
     }
 
+    public float PointRightAtTarget(Vector3 target)
+    {
+        Vector3 directionToTarget = target - transform.position;
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+        return angle;
+    }
     
 }

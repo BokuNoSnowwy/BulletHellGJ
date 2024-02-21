@@ -2,17 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Entity : MonoBehaviour
 {
+    [FormerlySerializedAs("maxLife")]
     [Header("Entity Stats")]
     [SerializeField]
-    protected float maxLife;
-    [SerializeField]
-    protected float movementSpeed;
+    protected float _maxLife;
+    [FormerlySerializedAs("movementSpeed")] [SerializeField]
+    protected float _movementSpeed;
     
-    protected float life;
-    
+    protected float _life;
+
 
 
     // Start is called before the first frame update
@@ -29,17 +31,17 @@ public class Entity : MonoBehaviour
 
     protected void OnEnable()
     {
-        life = maxLife;
+        _life = _maxLife;
     }
 
     public virtual bool IsAlive()
     {
-        return life > 0f;
+        return _life > 0f;
     }
 
     public virtual void TakeDamage(float damage)
     {
-        life -= Mathf.RoundToInt(damage);
+        _life -= Mathf.RoundToInt(damage);
         if (!IsAlive())
         {
             Die();

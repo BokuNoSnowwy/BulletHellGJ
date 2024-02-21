@@ -24,8 +24,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4168197daf9066f4c863b82c80c8de61, type: 2}
   _enemyStreamArray:
   - timerEndSpawn: 20
-    timerMinSpawn: 0.5
-    timerMaxSpawn: 1.5
+    timerMinSpawn: 2.5
+    timerMaxSpawn: 3.5
     enemyTypeArray:
     - {fileID: 5116122935175720741, guid: 7872194cf58e37b4dbd4368a28ad3f14, type: 3}
     - {fileID: 5116122935175720741, guid: 2016d77fef211c44eaccd42ade133be6, type: 3}

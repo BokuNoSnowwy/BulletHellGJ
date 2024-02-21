@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target; // Référence au transform du joueur à suivre
-    public float smoothSpeed = 0.125f; // La vitesse à laquelle la caméra suit le joueur
+    public Transform target; // Rï¿½fï¿½rence au transform du joueur ï¿½ suivre
+    public float smoothSpeed = 0.125f; // La vitesse ï¿½ laquelle la camï¿½ra suit le joueur
 
     void FixedUpdate()
     {
@@ -15,5 +15,11 @@ public class CameraFollow : MonoBehaviour
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
             transform.position = smoothedPosition;
         }
+    }
+    
+    public static bool IsVisibleFrom(Renderer renderer, Camera camera)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
+        return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
     }
 }

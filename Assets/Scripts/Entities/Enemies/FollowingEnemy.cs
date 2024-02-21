@@ -18,6 +18,6 @@ public class FollowingEnemy : Enemy
         _sprite.flipX = _player.transform.position.x < transform.position.x;
 
         Vector3 playerDir = _player.transform.position - transform.position;
-        transform.Translate(playerDir.normalized * movementSpeed * Time.deltaTime);
+        transform.Translate(playerDir.normalized * _movementSpeed * Time.deltaTime);
     }
 }

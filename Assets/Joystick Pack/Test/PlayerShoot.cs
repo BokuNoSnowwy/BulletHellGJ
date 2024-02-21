@@ -134,7 +134,9 @@ public class PlayerShoot : MonoBehaviour
                         for (int i = 0; i < projectileNb; i++)
                         {
                             PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
-                            playerProjectile.transform.rotation = Quaternion.Euler(0,0,(360/projectileNb) * i);
+                            playerProjectile.transform.position = transform.position;
+                            float angle = (360f / projectileNb) * i;
+                            playerProjectile.transform.rotation = Quaternion.Euler(0,0,angle);
                             playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
                         }
                         break;

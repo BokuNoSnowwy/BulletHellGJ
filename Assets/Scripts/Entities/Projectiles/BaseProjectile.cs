@@ -23,7 +23,12 @@ public class BaseProjectile : MonoBehaviour
     {
         if (_projectileIsSetup)
         {
-            transform.Translate(transform.forward * Time.deltaTime * _projectileSpd); 
+            transform.Translate(transform.right * Time.deltaTime * _projectileSpd, Space.World); 
+        }
+
+        if (!CameraFollow.IsVisibleFrom(_spriteRenderer, Camera.main))
+        {
+            ReleaseFromPool();
         }
     }
     
@@ -47,10 +52,7 @@ public class BaseProjectile : MonoBehaviour
         _projectileIsSetup = true;
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D col)
-    {
-        
-    }
-    
+    protected virtual void ReleaseFromPool() { }
 
+    protected virtual void OnTriggerEnter2D(Collider2D col) { }
 }

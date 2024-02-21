@@ -29,6 +29,7 @@ public class Enemy : Entity
         _gameManager = GameManager.Instance;
         _poolingManager = ObjectsPoolingManager.Instance;
         _gameManager.AddGameStateChangeListener(ChangeGameState);
+        _player = Player.Instance;
     }
 
 
@@ -98,7 +99,7 @@ public class Enemy : Entity
             return;
         }
         
-        if (_player = null)
+        if (_player == null)
         {
             _player = col.gameObject.GetComponent<Player>();
         }

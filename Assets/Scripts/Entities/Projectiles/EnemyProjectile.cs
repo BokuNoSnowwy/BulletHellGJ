@@ -9,11 +9,13 @@ public class EnemyProjectile : BaseProjectile
         if (col.CompareTag("Player"))
         {
             col.gameObject.GetComponent<Player>().TakeDamage(_projectileDmg);
+            _poolingManager.EnemyProjectilesPool.Release(this);
         }
     }
     
-    private void OnBecameInvisible()
+    protected override void ReleaseFromPool()
     {
+        base.ReleaseFromPool();
         _poolingManager.EnemyProjectilesPool.Release(this);
     }
 }

@@ -104,7 +104,7 @@ MonoBehaviour:
   attackDamage: 5
   _sprite: {fileID: 2085347310772824424}
   _xpPrefab: {fileID: 0}
-  _timerMaxImmunityPlayer: 0
+  _timerMaxImmunityPlayer: 0.1
 --- !u!61 &5777831724512637808
 BoxCollider2D:
   m_ObjectHideFlags: 0

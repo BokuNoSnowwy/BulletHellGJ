@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     
     private GameState _gameState;
     private float _timerGame;
-    private UnityEvent<GameState> _onGameStateChanged;
+    private UnityEvent<GameState> _onGameStateChanged = new UnityEvent<GameState>();
 
     private void Awake()
     {

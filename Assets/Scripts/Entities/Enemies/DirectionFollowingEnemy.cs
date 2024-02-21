@@ -18,6 +18,6 @@ public class DirectionFollowingEnemy : Enemy
     {
         Tick();
 
-        transform.Translate(_dirToFollow.normalized * movementSpeed * Time.deltaTime);
+        transform.Translate(_dirToFollow.normalized * _movementSpeed * Time.deltaTime);
     }
 }

@@ -100,13 +100,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 10
-  movementSpeed: 2
+  movementSpeed: 1.5
   attackDamage: 5
   _sprite: {fileID: 2085347310772824424}
   _xpPrefab: {fileID: 0}
-  _timerMaxImmunityPlayer: 0
-  _bulletPrefab: {fileID: 0}
-  _distanceShoot: 2
+  _timerMaxImmunityPlayer: 0.1
+  _projectilePrefab: {fileID: 599466651576664928, guid: e26065c2903c86d4d9b7f3f2fb5f7b71, type: 3}
+  _projectileDmg: 3
+  _projectileSpd: 3.5
+  _projectileScale: 1
+  _distanceShoot: 5
   _timerMaxShoot: 2
 --- !u!61 &7678963518264349628
 BoxCollider2D:
