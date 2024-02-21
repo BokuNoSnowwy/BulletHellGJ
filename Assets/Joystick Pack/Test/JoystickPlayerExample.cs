@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class JoystickPlayerExample : MonoBehaviour
 {
-    /*public float speed;
-    public VariableJoystick variableJoystick;
-    public Rigidbody rb;*/
-
-    /*public void FixedUpdate()
-    {
-        Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
-        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
-    }*/
-
     public float speed;
     public VariableJoystick variableJoystick;
     public Rigidbody rb;
 
     public void FixedUpdate()
     {
-        Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
-        rb.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        //Vector3 direction = Vector3.up * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
+
+        //transform.Translate(direction * speed * Time.deltaTime);
 
         
-        if (direction != Vector3.zero)
-        {
-            // Calculer la rotation pour que le joueur regarde dans la direction du mouvement
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
+        float moveHorizontal = variableJoystick.Horizontal;
+        float moveVertical = variableJoystick.Vertical;
 
-            // Appliquer la rotation au joueur, en gardant sa rotation en Y (pour éviter de basculer)
-            transform.rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y, 0f);
+        
+        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0f) * speed;
+
+        
+        rb.velocity = movement;
+
+        
+        if (movement.magnitude > 0.1f)
+        {
+            float angle = Mathf.Atan2(moveVertical, moveHorizontal) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         }
     }
+
+    
 }
