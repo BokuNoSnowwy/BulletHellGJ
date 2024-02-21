@@ -78,7 +78,6 @@ public class ObjectsPoolingManager : MonoBehaviour
     }
     void OnTakeEnemyFromPool(Enemy enemy)
     {
-        //enemy.gameObject.SetActive(true);
         enemy.OnTakenFromPool();
     }
     void OnDestroyEnemyPoolObject(Enemy enemy)

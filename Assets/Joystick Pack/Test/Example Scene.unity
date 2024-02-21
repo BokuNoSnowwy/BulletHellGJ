@@ -4854,8 +4854,8 @@ MonoBehaviour:
   shootPoint: {fileID: 5782565014812204250}
   projectileSpeed: 10
   shootInterval: 0.5
-  useShootA: 0
-  useShoot360: 0
+  useShootA: 1
+  useShoot360: 1
   useShootTarget: 1
   detectionRadius: 10
   numProjectiles: 10
