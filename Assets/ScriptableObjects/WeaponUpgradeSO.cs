@@ -17,5 +17,6 @@ public class WeaponUpgradeSO : ScriptableObject
     public float projectileScaleMultiplier;
     public float projectileSpdMultiplier;
     public float weaponReloadMultiplier;
-    public GameObject projectilePrefab;
+    public float weaponTimeBetweenShootMultiplier;
+    public PlayerProjectile projectilePrefab;
 }

@@ -22,5 +22,7 @@ public class WeaponPlayerSO : ScriptableObject
     public float baseProjectileDmg;
     public float baseProjectileSpd;
     public float baseWeaponReloadTime;
+    public float baseTimeBetweenShoot;
+    public PlayerProjectile basePlayerProjectilePrefab;
     public WeaponUpgradeSO[] weaponLevelArray;
 }

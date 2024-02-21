@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6410474748231449637}
   - component: {fileID: 5777831724512637808}
   - component: {fileID: 2122646279058185060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FollowingEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef82d09a8b81e814fb2431719bf1f487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 10
-  movementSpeed: 1
+  _maxLife: 10
+  _movementSpeed: 1
   attackDamage: 5
   _sprite: {fileID: 2085347310772824424}
   _xpPrefab: {fileID: 0}

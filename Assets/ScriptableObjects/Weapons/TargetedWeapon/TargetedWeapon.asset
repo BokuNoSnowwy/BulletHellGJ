@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b8b5320b64931942ba531536b64dc72, type: 3}
-  m_Name: 360Weapon
+  m_Name: TargetedWeapon
   m_EditorClassIdentifier: 
   weaponName: 
   weaponSprite: {fileID: 0}
   weaponDescription: 
-  projectileType: 2
-  baseProjectileNb: 4
-  baseProjectileDmg: 5
+  projectileType: 0
+  baseProjectileNb: 2
+  baseProjectileDmg: 2
   baseProjectileSpd: 2
-  baseWeaponReloadTime: 2
-  baseTimeBetweenShoot: 0
-  basePlayerProjectilePrefab: {fileID: 0}
+  baseWeaponReloadTime: 1.2
+  baseTimeBetweenShoot: 0.2
+  basePlayerProjectilePrefab: {fileID: 2323562116905594707, guid: a532bc03008c5454da974b21222cc26a, type: 3}
   weaponLevelArray:
-  - {fileID: 11400000, guid: c27033eeef7df164e802780598282da4, type: 2}
-  - {fileID: 11400000, guid: d023c7713b70c67439f81b1ce3dcfedb, type: 2}
-  - {fileID: 11400000, guid: df462ccbb0e2018468b5a7460b725918, type: 2}
+  - {fileID: 11400000, guid: 60f54fc6d8c83ca42899a3b559907167, type: 2}
+  - {fileID: 11400000, guid: 4aec159f6d0eed74ba9f85171808a30b, type: 2}
+  - {fileID: 11400000, guid: fc89fcc28f00be645addac71f06a9336, type: 2}

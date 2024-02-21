@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 [Serializable]
@@ -26,56 +27,89 @@ public class PlayerWeapon
     public int GetTotalProjectiles()
     {
         int projectilesFromUpgrades = 0;
-        for (int i = 0; i < upgradeIndex; i++)
+        if (upgradeIndex != 0)
         {
-            projectilesFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileToAdd;
+            for (int i = 0; i < upgradeIndex-1; i++)
+            {
+                projectilesFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileToAdd;
+            }
         }
+        
         return weaponPlayerSo.baseProjectileNb + projectilesFromUpgrades;
     }
     
     public float GetTotalProjectileDamage()
     {
         float projectileDmgFromUpgrades = 0;
-        for (int i = 0; i < upgradeIndex; i++)
+        if (upgradeIndex != 0)
         {
-            projectileDmgFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileDmgMultiplier;
+            for (int i = 0; i < upgradeIndex-1; i++)
+            {
+                projectileDmgFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileDmgMultiplier;
+            }
         }
+        
         return weaponPlayerSo.baseProjectileDmg * (1 + projectileDmgFromUpgrades/100);
     }
     
     public float GetTotalProjectileSpd()
     {
         float projectileSpdFromUpgrades = 0;
-        for (int i = 0; i < upgradeIndex; i++)
+        if (upgradeIndex != 0)
         {
-            projectileSpdFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileSpdMultiplier;
+            for (int i = 0; i < upgradeIndex-1; i++)
+            {
+                projectileSpdFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileSpdMultiplier;
+            }
         }
+        
         return weaponPlayerSo.baseProjectileSpd * (1 + projectileSpdFromUpgrades/100);
     }
     
     public float GetTotalProjectileScale()
     {
         float projectileScaleFromUpgrades = 0;
-        for (int i = 0; i < upgradeIndex; i++)
+        if (upgradeIndex != 0)
         {
-            projectileScaleFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileScaleMultiplier;
+            for (int i = 0; i < upgradeIndex-1; i++)
+            {
+                projectileScaleFromUpgrades += weaponPlayerSo.weaponLevelArray[i].projectileScaleMultiplier;
+            }
         }
+        
         return 1 * (1 + projectileScaleFromUpgrades/100);
     }
 
     public float GetTotalReloadTimer()
     {
         float projectileReloadFromUpgrades = 0;
-        for (int i = 0; i < upgradeIndex; i++)
+        if (upgradeIndex != 0)
         {
-            projectileReloadFromUpgrades += weaponPlayerSo.weaponLevelArray[i].weaponReloadMultiplier;
+            for (int i = 0; i < upgradeIndex-1; i++)
+            {
+                projectileReloadFromUpgrades += weaponPlayerSo.weaponLevelArray[i].weaponReloadMultiplier;
+            }
         }
         return weaponPlayerSo.baseWeaponReloadTime * (1 - projectileReloadFromUpgrades/100);
     }
 
-    public GameObject GetProjectilePrefab()
+    public float GetTotalTimerBetweenShoot()
     {
-        return weaponPlayerSo.weaponLevelArray[upgradeIndex].projectilePrefab;
+        float projectileTimerBetweenShoot = 0;
+        if (upgradeIndex != 0)
+        {
+            for (int i = 0; i < upgradeIndex-1; i++)
+            {
+                projectileTimerBetweenShoot += weaponPlayerSo.weaponLevelArray[i].weaponTimeBetweenShootMultiplier;
+            }
+        }
+        
+        return weaponPlayerSo.baseWeaponReloadTime * (1 - projectileTimerBetweenShoot/100);
+    }
+
+    public PlayerProjectile GetProjectilePrefab()
+    {
+        return upgradeIndex != 0 ? weaponPlayerSo.weaponLevelArray[upgradeIndex].projectilePrefab : weaponPlayerSo.basePlayerProjectilePrefab;
     }
 }
 public class PlayerShoot : MonoBehaviour
@@ -99,6 +133,8 @@ public class PlayerShoot : MonoBehaviour
     public float detectionRadius = 10f;
     
     //new Weapon system
+    [SerializeField]
+    private Transform shootingTransform;
     [SerializeField]
     private PlayerWeapon[] _playerWeapons = new PlayerWeapon[3];
 
@@ -124,8 +160,6 @@ public class PlayerShoot : MonoBehaviour
                 float projectileDmg = weapon.GetTotalProjectileDamage();
                 float projectileSpd = weapon.GetTotalProjectileSpd();
                 float projectileScale = weapon.GetTotalProjectileScale();
-
-                //TODO Timer 
                 
                 switch (weapon.weaponPlayerSo.projectileType)
                 {
@@ -142,60 +176,77 @@ public class PlayerShoot : MonoBehaviour
                         break;
                     case WeaponProjectileType.FollowPlayerDirection : 
                         //TODO Multiple projectiles in a row (intern timers)
+                        for (int i = 0; i < projectileNb; i++)
+                        {
+                            StartCoroutine(ShootAfterTime(weapon.GetTotalTimerBetweenShoot() * i, () =>
+                            {
+                                PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
+                                playerProjectile.transform.position = transform.position;
+                                playerProjectile.transform.up = -shootingTransform.right;
+                                playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
+                            }));
+                        } 
                         break;
                     case WeaponProjectileType.TargetAtNearestEnemy : 
-                        //TODO Multiple projectiles in a row (intern timers)    
+                        //TODO Time between shoots not working properly 
+                        for (int i = 0; i < projectileNb; i++)
+                        {
+                            StartCoroutine(ShootAfterTime(weapon.GetTotalTimerBetweenShoot() * i, () =>
+                            {
+                                Vector3 nearestEnemyPos = GetNearestEnemyPos();
+                                if (nearestEnemyPos != Vector3.zero)
+                                {
+                                    PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
+                                    playerProjectile.transform.position = transform.position;
+                                    float angle = PointRightAtTarget(nearestEnemyPos);
+                                    playerProjectile.transform.rotation = Quaternion.Euler(0,0,angle);
+                                    playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
+                                }
+                            }));
+                        }
                         break;
                 }
 
                 weapon.timerShoot = weapon.GetTotalReloadTimer();
             }
         }
-        
-        // if (Time.time - lastShootTime >= shootInterval) 
-        // {
-        //     if (useShootA)
-        //     {
-        //         Shoot();
-        //     }
-        //     if (useShoot360)
-        //     {
-        //         Shoot360();
-        //     }
-        //     if (useShootTarget)
-        //     {
-        //         // D�tection des ennemis les plus proches
-        //         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
-        //
-        //         GameObject nearestEnemy = null;
-        //         float nearestDistance = Mathf.Infinity;
-        //
-        //         foreach (Collider col in colliders)
-        //         {
-        //             // V�rifiez si le collider appartient � un ennemi
-        //             if (col.CompareTag("Enemy"))
-        //             {
-        //
-        //                 float distanceToEnemy = Vector3.Distance(transform.position, col.transform.position);
-        //                 if (distanceToEnemy < nearestDistance)
-        //                 {
-        //                     nearestEnemy = col.gameObject;
-        //                     nearestDistance = distanceToEnemy;
-        //                 }
-        //             }
-        //         }
-        //
-        //         // Tirer sur l'ennemi le plus proche
-        //         if (nearestEnemy != null)
-        //         {
-        //             ShootAt(nearestEnemy.transform.position);
-        //         }
-        //     }
-        //
-        //     lastShootTime = Time.time; 
-        // }
+    }
 
-        
+    private IEnumerator ShootAfterTime(float time, UnityAction callback)
+    {
+        Debug.LogError(time);
+        yield return new WaitForSeconds(time);
+        Debug.LogError("After waiting ");
+        callback.Invoke();
+    }
+    
+    public float PointRightAtTarget(Vector3 target)
+    {
+        Vector3 directionToTarget = target - transform.position;
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+        return angle;
+    }
+
+    private Vector3 GetNearestEnemyPos()
+    {
+        // Obtenir tous les ennemis dans le rayon spécifié
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, 20f, LayerMask.GetMask("Enemy"));
+
+        Collider2D closest = null;
+        float minDistanceSqr = Mathf.Infinity;
+
+        foreach (Collider2D enemy in enemies)
+        {
+            float distanceSqr = ((Vector2)(enemy.transform.position - transform.position)).sqrMagnitude;
+
+            if (distanceSqr < minDistanceSqr)
+            {
+                closest = enemy;
+                minDistanceSqr = distanceSqr;
+            }
+        }
+
+        return closest ? closest.transform.position : Vector3.zero;
     }
 
     // M�thode pour tirer pour le shoot "Arme qui tire en direction du Joystick"

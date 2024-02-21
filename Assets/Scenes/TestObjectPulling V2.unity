@@ -412,6 +412,7 @@ MonoBehaviour:
   speed: 5
   variableJoystick: {fileID: 779033270}
   rb: {fileID: 118060339}
+  rotationShooting: {fileID: 427359905}
 --- !u!114 &118060336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,19 +420,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 118060332}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 471e007e6b5565d498fd7d2a50b22bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6020913561661368570, guid: 8b460eb8b8b175b4696b184a7a6fea8f, type: 3}
-  shootPoint: {fileID: 427359905}
+  projectilePrefab: {fileID: 0}
+  shootPoint: {fileID: 0}
   projectileSpeed: 10
-  shootInterval: 0.5
-  useShootA: 0
-  useShoot360: 0
-  useShootTarget: 0
+  shootInterval: 4
   detectionRadius: 10
+  shootingTransform: {fileID: 427359905}
+  _playerWeapons:
+  - weaponPlayerSo: {fileID: 11400000, guid: 6a985d2d44aac044fb3df5480c4ce325, type: 2}
+    timerShoot: 2
+    upgradeIndex: 0
+  - weaponPlayerSo: {fileID: 11400000, guid: af538b6f1560e3144baab2211e20c342, type: 2}
+    timerShoot: 2
+    upgradeIndex: 0
+  - weaponPlayerSo: {fileID: 11400000, guid: c143c40e96dbcfc499f32ec23d7297c0, type: 2}
+    timerShoot: 2
+    upgradeIndex: 0
   numProjectiles: 10
 --- !u!4 &118060338
 Transform:
@@ -609,8 +618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c857275b8d04fe74d9e6bceb217793cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerProjectilePrefab: {fileID: 0}
-  enemyProjectilePrefab: {fileID: 0}
+  playerProjectilePrefab: {fileID: 2323562116905594707, guid: a532bc03008c5454da974b21222cc26a, type: 3}
+  enemyProjectilePrefab: {fileID: 599466651576664928, guid: e26065c2903c86d4d9b7f3f2fb5f7b71, type: 3}
   enemyPrefab: {fileID: 6410474748231449637, guid: 7872194cf58e37b4dbd4368a28ad3f14, type: 3}
 --- !u!4 &137356682
 Transform:
@@ -1378,7 +1387,7 @@ Transform:
   m_GameObject: {fileID: 427359904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3334,9 +3343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95599a366a08201438f81731b7a95098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 0
-  movementSpeed: 0
-  projectilePrefab: {fileID: 0}
+  _maxLife: 0
+  _movementSpeed: 0
   exp: 0
   level: 0
   attackSpeedMultiplier: 1

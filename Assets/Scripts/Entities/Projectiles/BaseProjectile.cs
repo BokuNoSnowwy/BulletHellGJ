@@ -26,7 +26,7 @@ public class BaseProjectile : MonoBehaviour
             transform.Translate(transform.right * Time.deltaTime * _projectileSpd, Space.World); 
         }
 
-        if (!CameraFollow.IsVisibleFrom(_spriteRenderer, Camera.main))
+        if (!CameraManager.IsVisibleFrom(_spriteRenderer, Camera.main))
         {
             ReleaseFromPool();
         }
@@ -35,14 +35,13 @@ public class BaseProjectile : MonoBehaviour
     public void OnTakenFromPool()
     {
         gameObject.SetActive(true);
-        //Debug.Log("Enemy spawned");
     }
 
     public void SetupProjectile(float dmg, float spd, float scale = 1, Sprite sprite = null)
     {
         _projectileSpd = spd;
         _projectileDmg = dmg;
-        transform.localScale *= scale;
+        //transform.localScale *= scale;
         
         if (sprite != null)
         {
