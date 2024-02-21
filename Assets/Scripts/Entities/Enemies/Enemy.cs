@@ -23,7 +23,7 @@ public class Enemy : Entity
     protected ObjectsPoolingManager _poolingManager;
     private GameManager _gameManager;
     private GameState _gameState;
-    
+
     protected void Initialization()
     {
         _gameManager = GameManager.Instance;
@@ -35,7 +35,7 @@ public class Enemy : Entity
 
     public void OnTakenFromPool()
     {
-        _player = Player.Instance;
+        if (_player == null) _player = Player.Instance;
         gameObject.SetActive(true);
         //Debug.Log("Enemy spawned");
     }
@@ -55,6 +55,7 @@ public class Enemy : Entity
                 _canDamagePlayer = true;
             }
         }
+
     }
 
     public override void TakeDamage(float damage)
@@ -78,6 +79,20 @@ public class Enemy : Entity
     private void OnTriggerEnter2D(Collider2D col)
     {
         CheckCollisionPlayer(col);
+        CheckOutOfBounds(col);
+    }
+
+    private void CheckOutOfBounds(Collider2D col)
+    {
+        if (!col.gameObject.CompareTag("DeathZone"))
+        {
+            return;
+        } else
+        {
+            ObjectsPoolingManager.Instance.EnemiesPool.Release(this);
+            Debug.Log("Enemy OOB");
+        }
+
     }
 
     private void OnTriggerStay2D(Collider2D col)
