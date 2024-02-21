@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6374373611503023158}
   - component: {fileID: 2085347310772824424}
+  - component: {fileID: -5317957978233692981}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: FollowingShootingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.9118242, a: 1}
+  m_Color: {r: 0, g: 0.065425396, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,3 +85,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-5317957978233692981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5116122935175720741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d4185fb1376034a985a87ea5ec6be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 10
+  movementSpeed: 2
+  attackDamage: 5
+  _sprite: {fileID: 2085347310772824424}
+  _xpPrefab: {fileID: 0}
+  _timerMaxImmunityPlayer: 0
+  _bulletPrefab: {fileID: 0}
+  _distanceShoot: 2
+  _timerMaxShoot: 2
