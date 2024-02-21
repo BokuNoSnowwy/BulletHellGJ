@@ -214,9 +214,7 @@ public class PlayerShoot : MonoBehaviour
 
     private IEnumerator ShootAfterTime(float time, UnityAction callback)
     {
-        Debug.LogError(time);
         yield return new WaitForSeconds(time);
-        Debug.LogError("After waiting ");
         callback.Invoke();
     }
     
