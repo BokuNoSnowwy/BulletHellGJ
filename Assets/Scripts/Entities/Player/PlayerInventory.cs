@@ -161,14 +161,14 @@ public class PlayerInventory : MonoBehaviour
     public void AddWeaponToArray(WeaponPlayerSO weaponSO)
     {
         PlayerWeapon playerWeapon = _playerWeaponArray.ToList().Find(weapon => weaponSO == weapon.weaponPlayerSo);
-        
+        bool isWeaponsEmpty = CheckIfWeaponHasEmpty();
         if (playerWeapon != null)
         {
             // Upgrade
             playerWeapon.upgradeIndex++;
             
             //Check fully upgraded
-            if (playerWeapon.upgradeIndex > playerWeapon.weaponPlayerSo.weaponLevelArray.Length)
+            if (playerWeapon.upgradeIndex >= playerWeapon.weaponPlayerSo.weaponLevelArray.Length)
             {
                 _itemGame.ToList().Remove(playerWeapon.weaponPlayerSo);
             }
@@ -182,26 +182,27 @@ public class PlayerInventory : MonoBehaviour
 
                 _indexWeaponInventory++;
             }
-            else
-            {
-                Debug.LogError(_itemGame.Length);
-                _itemGame.ToList().RemoveAll(weapon => (WeaponPlayerSO) weapon == _playerWeaponArray.ToList().Find(playerWeapon => playerWeapon.weaponPlayerSo != (WeaponPlayerSO) weapon).weaponPlayerSo);
-                Debug.LogError(_itemGame.Length);
-            }
+        }
+        
+        if (!isWeaponsEmpty)
+        {
+            Debug.LogError(_itemGame.Length);
+            _itemGame.ToList().RemoveAll(passive => (PassivePlayerSO) passive == _playerPassiveArray.ToList().Find(playerPassive => playerPassive.passivePlayerSo != (PassivePlayerSO) passive).passivePlayerSo);
+            Debug.LogError(_itemGame.Length);
         }
     }
 
     public void AddPassiveToArray(PassivePlayerSO passiveSO)
     {
         PlayerPassive playerPassive = _playerPassiveArray.ToList().Find(passive => passiveSO == passive.passivePlayerSo);
-        
+        bool isPassivesEmpty = CheckIfPassiveHasEmpty();
         if (playerPassive != null)
         {
             // Upgrade
             playerPassive.upgradeIndex++;
             
             //Check fully upgraded
-            if (playerPassive.upgradeIndex > playerPassive.passivePlayerSo.passiveLevelArray.Length)
+            if (playerPassive.upgradeIndex >= playerPassive.passivePlayerSo.passiveLevelArray.Length)
             {
                 _itemGame.ToList().Remove(playerPassive.passivePlayerSo);
             }
@@ -209,7 +210,7 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             // Add new
-            if (CheckIfPassiveHasEmpty())
+            if (isPassivesEmpty)
             {
                 _playerPassiveArray[_indexPassiveInventory] = new PlayerPassive(passiveSO);
                 // Add max life 
@@ -221,12 +222,14 @@ public class PlayerInventory : MonoBehaviour
                 
                 _indexPassiveInventory++;
             }
-            else
-            {
-                Debug.LogError(_itemGame.Length);
-                _itemGame.ToList().RemoveAll(passive => (PassivePlayerSO) passive == _playerPassiveArray.ToList().Find(playerPassive => playerPassive.passivePlayerSo != (PassivePlayerSO) passive).passivePlayerSo);
-                Debug.LogError(_itemGame.Length);
-            }
+            
+        }
+
+        if (!isPassivesEmpty)
+        {
+            Debug.LogError(_itemGame.Length);
+            _itemGame.ToList().RemoveAll(passive => (PassivePlayerSO) passive == _playerPassiveArray.ToList().Find(playerPassive => playerPassive.passivePlayerSo != (PassivePlayerSO) passive).passivePlayerSo);
+            Debug.LogError(_itemGame.Length);
         }
     }
 
@@ -256,7 +259,7 @@ public class PlayerInventory : MonoBehaviour
                 {
                     if (playerWeapon.weaponPlayerSo == newItemArray[i])
                     {
-                        itemName = playerWeapon.weaponPlayerSo.itemName + " Lvl " + playerWeapon.upgradeIndex + 1;
+                        itemName = playerWeapon.weaponPlayerSo.itemName + " Lvl " + (playerWeapon.upgradeIndex + 1);
                         itemDescription = playerWeapon.weaponPlayerSo.weaponLevelArray[playerWeapon.upgradeIndex].upgradeDescription;
                     }
                 }
@@ -267,7 +270,7 @@ public class PlayerInventory : MonoBehaviour
                 {
                     if (playerPassive.passivePlayerSo == newItemArray[i])
                     {
-                        itemName = playerPassive.passivePlayerSo.itemName + " Lvl " + playerPassive.upgradeIndex + 1;
+                        itemName = playerPassive.passivePlayerSo.itemName + " Lvl " + (playerPassive.upgradeIndex + 1);
                         itemDescription = playerPassive.passivePlayerSo.passiveLevelArray[playerPassive.upgradeIndex].upgradeDescription;
                     }
                 }
