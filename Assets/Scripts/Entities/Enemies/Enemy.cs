@@ -14,9 +14,6 @@ public class Enemy : Entity
     protected SpriteRenderer _spriteRenderer;
 
     [SerializeField]
-    private GameObject _xpPrefab;
-
-    [SerializeField]
     private float _timerMaxImmunityPlayer;
 
     private float _timerImmunityPlayer;

@@ -242,8 +242,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxLife: 100
   _movementSpeed: 5
-  exp: 0
-  level: 0
+  ExpCapCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  currentExp: 0
+  maxExp: 25
+  currentLevel: 0
   attackSpeedMultiplier: 1
   movementSpeedMultiplier: 1
 --- !u!4 &32062995
@@ -1520,6 +1527,7 @@ MonoBehaviour:
   playerProjectilePrefab: {fileID: 2323562116905594707, guid: a532bc03008c5454da974b21222cc26a, type: 3}
   enemyProjectilePrefab: {fileID: 599466651576664928, guid: e26065c2903c86d4d9b7f3f2fb5f7b71, type: 3}
   enemyPrefab: {fileID: -5317957978233692981, guid: 08df923b216604743bc7754f39b5d910, type: 3}
+  expPrefab: {fileID: 1641107418902064724, guid: d6343bb7932863145b4ac99dfa668c00, type: 3}
 --- !u!4 &603945325
 Transform:
   m_ObjectHideFlags: 0
