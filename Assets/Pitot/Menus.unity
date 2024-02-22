@@ -1604,7 +1604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &869909808
 Transform:
   m_ObjectHideFlags: 0
@@ -17924,6 +17924,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8369689068175400396, guid: 612265d50b034e4438bd1d1504bfd800, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18050,10 +18054,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 708432197748060389, guid: 28adae75dc6a26c42a7dd06705721129, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2136212092674261096, guid: 28adae75dc6a26c42a7dd06705721129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1442160860}
+    - target: {fileID: 2606760418614770783, guid: 28adae75dc6a26c42a7dd06705721129, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8077517611032663856, guid: 28adae75dc6a26c42a7dd06705721129, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -18263,6 +18275,10 @@ PrefabInstance:
     - target: {fileID: 4272106640166576074, guid: 9b6a2e9cecaaa384d85e8a59328c5f6f, type: 3}
       propertyPath: m_Name
       value: PauseCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272106640166576074, guid: 9b6a2e9cecaaa384d85e8a59328c5f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5727088983542484071, guid: 9b6a2e9cecaaa384d85e8a59328c5f6f, type: 3}
       propertyPath: m_Pivot.x

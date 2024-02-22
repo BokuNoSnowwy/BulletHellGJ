@@ -5,7 +5,9 @@ using UnityEngine.Serialization;
 public class Player : Entity
 {
     public static Player Instance;
-    
+
+    public GameObject deathMenu;
+
     //Exp an Level
     [SerializeField] AnimationCurve ExpCapCurve;
     public int currentExp;
@@ -108,6 +110,7 @@ public class Player : Entity
     protected override void Die()
     {
         _gameManager.SetGameState(GameState.Pause);
+        deathMenu.SetActive(true);
         //TODO Disable player controller
         //TODO Death animation 
     }
