@@ -31,7 +31,9 @@ public class EnemySpawner : MonoBehaviour
     
     private GameState _gameState;
 
+    private bool _waveDone = false;
 
+    private float _streamTimer = 0f;
 
     private void Awake()
     {
@@ -50,14 +52,15 @@ public class EnemySpawner : MonoBehaviour
         if (_gameState == GameState.Game)
         {
             #region Waves Spawn
-            if (_currentEnemyWave.timerSpawn <= _gameManager.TimerGame)
+         
+            if (_waveDone == false && _currentEnemyWave.timerSpawn <= _gameManager.TimerGame)
             {
                 // Spawn Enemies Waves
-                foreach (var enemy in _currentEnemyWave.enemyWaveArray)
+                for (int i = 0; i < _currentEnemyWave.NumberOfEnemies; i++)
                 {
-                    Debug.Log("Spawn Wave " + enemy.EnemyPrefab + " to " + enemy.SideSpawn + " perecentage : " + enemy.PercentageSideSpawn);
+                    SpawnOnSide(_currentEnemyWave.enemyWaveArray.EnemyPrefab, _currentEnemyWave.enemyWaveArray.SideSpawn);
                 }
-            
+
                 // Increment index spawner
                 _indexSpawnWave++;
                 if (_indexSpawnWave < _enemyWaveOrderedArray.Length)
@@ -66,34 +69,34 @@ public class EnemySpawner : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Spawn Boss");
+                    _waveDone = true;
                 }
             }
+           
             #endregion
                     
                       
             #region Stream Spawn
-            
-            if (_currentEnemyStream.timerEndSpawn <= _gameManager.TimerGame)
+            if(_streamTimer < _currentEnemyStream.timerEndSpawn)
             {
-                _indexSpawnStream++;
-                if (_indexSpawnStream < _enemyStreamOrderedArray.Length)
-                {
-                    _currentEnemyStream = _enemyStreamOrderedArray[_indexSpawnStream];
-                    _timerSpawnEnemyStream = Random.Range(_currentEnemyStream.timerMinSpawn, _currentEnemyStream.timerMaxSpawn);
-                }
+                _streamTimer += Time.deltaTime;
             }
             else
             {
-                _timerSpawnEnemyStream -= Time.deltaTime;  
-               
-                if (_timerSpawnEnemyStream <= 0)
-                {
-                   _timerSpawnEnemyStream = Random.Range(_currentEnemyStream.timerMinSpawn, _currentEnemyStream.timerMaxSpawn);
-                    //Spawn Enemies Stream 
-                    SpawnRandom(_currentEnemyStream.enemyTypeArray);
-                }
+                _streamTimer = 0f;
+                SetStreamIndex();
             }
+
+            if(_timerSpawnEnemyStream <= 0f)
+            {
+                _timerSpawnEnemyStream = Random.Range(_currentEnemyStream.timerMinSpawn, _currentEnemyStream.timerMaxSpawn); 
+                SpawnRandom(_currentEnemyStream.enemyTypeArray);
+            }
+            else
+            {
+                _timerSpawnEnemyStream -= Time.deltaTime;
+            }
+
             #endregion
         }
     }
@@ -101,6 +104,20 @@ public class EnemySpawner : MonoBehaviour
     private void ChangeGameState(GameState gameState)
     {
         _gameState = gameState;
+    }
+
+    private void SetStreamIndex()
+    {
+        _indexSpawnStream++;
+        if (_indexSpawnStream < _enemyStreamOrderedArray.Length)
+        {
+            _currentEnemyStream = _enemyStreamOrderedArray[_indexSpawnStream];
+            _timerSpawnEnemyStream = Random.Range(_currentEnemyStream.timerMinSpawn, _currentEnemyStream.timerMaxSpawn);
+        }
+        else
+        {
+            _indexSpawnStream = 0;
+        }
     }
 
     private void SetupOrderSpawnArray()
@@ -139,6 +156,36 @@ public class EnemySpawner : MonoBehaviour
         enemy.gameObject.transform.position = _camera.ViewportToWorldPoint(enemySpawnPosition);
 
         enemy.Initialization(randomEnemy);
+    }
+
+    private void SpawnOnSide(EnemyParameters parameters, CameraSide side)
+    {
+        Enemy enemy = ObjectsPoolingManager.Instance.EnemiesPool.Get();
+        float randomPercentageSide = Random.Range(0, 101);
+        Vector3 enemySpawnPosition = new Vector3(0, 0, _camera.nearClipPlane);
+
+        switch (side)
+        {
+            case CameraSide.Top:
+                enemySpawnPosition.x = (randomPercentageSide / 100);
+                enemySpawnPosition.y = POS_MAX_OFFSET;
+                break;
+            case CameraSide.Bottom:
+                enemySpawnPosition.x = (randomPercentageSide / 100);
+                enemySpawnPosition.y = POS_MIN_OFFSET;
+                break;
+            case CameraSide.Left:
+                enemySpawnPosition.x = POS_MIN_OFFSET;
+                enemySpawnPosition.y = (randomPercentageSide / 100);
+                break;
+            case CameraSide.Right:
+                enemySpawnPosition.x = POS_MAX_OFFSET;
+                enemySpawnPosition.y = (randomPercentageSide / 100);
+                break;
+        }
+        enemy.gameObject.transform.position = _camera.ViewportToWorldPoint(enemySpawnPosition);
+
+        enemy.Initialization(parameters);
     }
 
 }

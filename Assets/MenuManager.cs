@@ -7,7 +7,8 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject controlsPanel;
     public GameObject pauseMenu;
-    private bool isMainMenuActive = true;
+
+    private bool isPaused = false;
 
     void Start()
     {
@@ -15,18 +16,9 @@ public class MenuManager : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Pause();
-        }
-    }
-
 
     public void Play()
     {
-        isMainMenuActive = false;
         //Debug.Log("launching : GameLoop");
         SceneManager.LoadScene("GameLoop");
     }
@@ -39,18 +31,24 @@ public class MenuManager : MonoBehaviour
 
     public void Pause()
     {
-        if (!isMainMenuActive)
+        isPaused = !isPaused;
+
+        if (isPaused)
         {
             Time.timeScale = 0f;
             pauseMenu.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            pauseMenu.SetActive(false);
         }
     }
 
     public void MainMenu()
     {
         //Debug.Log("launching : MainMenuScene");
-        SceneManager.LoadScene("MainMenuScene");
-        isMainMenuActive = true;
+        SceneManager.LoadScene("MainMenuV2");
     }
 
     public void Controls()

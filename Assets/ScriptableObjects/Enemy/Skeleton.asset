@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e75812cddaa3547ba2acb9ffe1f698, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  AttackDamage: 4
-  Speed: 5
+  AttackDamage: 7
+  Speed: 2
   MaxLife: 10
-  Sprite: {fileID: -2092964637, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
+  SpritesAnimation: {fileID: 9100000, guid: 7eaca7ab43af19c4b9ac7a642b44616f, type: 2}

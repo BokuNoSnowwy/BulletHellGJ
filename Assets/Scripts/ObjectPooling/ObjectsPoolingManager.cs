@@ -34,9 +34,9 @@ public class ObjectsPoolingManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        if (playerProjectilePrefab != null) playerProjectilesPool = new ObjectPool<PlayerProjectile>(CreatePlayerProjectileObject, OnTakePlayerProjectileFromPool, OnReturnedPlayerProjectileToPool, OnDestroyPlayerProjectilePoolObject, true, 200);
-        if (enemyProjectilePrefab != null) enemyProjectilesPool = new ObjectPool<EnemyProjectile>(CreateEnemyProjectileObject, OnTakeEnemyProjectileFromPool, OnReturnedEnemyProjectileToPool, OnDestroyEnemyProjectilePoolObject, true, 100);
-        if (enemyPrefab != null) enemiesPool = new ObjectPool<Enemy>(CreateEnemiesObject, OnTakeEnemyFromPool, OnReturnedEnemyToPool, OnDestroyEnemyPoolObject, true, 100, 300);
+        if (playerProjectilePrefab != null) playerProjectilesPool = new ObjectPool<PlayerProjectile>(CreatePlayerProjectileObject, OnTakePlayerProjectileFromPool, OnReturnedPlayerProjectileToPool, OnDestroyPlayerProjectilePoolObject, true, 300);
+        if (enemyProjectilePrefab != null) enemyProjectilesPool = new ObjectPool<EnemyProjectile>(CreateEnemyProjectileObject, OnTakeEnemyProjectileFromPool, OnReturnedEnemyProjectileToPool, OnDestroyEnemyProjectilePoolObject, true, 200);
+        if (enemyPrefab != null) enemiesPool = new ObjectPool<Enemy>(CreateEnemiesObject, OnTakeEnemyFromPool, OnReturnedEnemyToPool, OnDestroyEnemyPoolObject, true, 200, 2000);
         if (expPrefab != null) expPool = new ObjectPool<ExperiencePoint>(CreateExpObject, OnTakeExpFromPool, OnReturnedExpToPool, OnDestroyExpPoolObject, true, 100, 300);
     }
 

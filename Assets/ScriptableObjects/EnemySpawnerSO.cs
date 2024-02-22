@@ -8,7 +8,8 @@ using UnityEngine.Serialization;
 public class EnemyWave
 {
     public float timerSpawn;
-    public EnemySpawnSO[] enemyWaveArray;
+    public EnemySpawnSO enemyWaveArray;
+    public int NumberOfEnemies = 1;
 }
 
 [Serializable]

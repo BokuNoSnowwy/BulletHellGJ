@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DefaultEnemyParameters
   m_EditorClassIdentifier: 
   AttackDamage: 4
-  Speed: 5
+  Speed: 2
   MaxLife: 10
-  Sprite: {fileID: 172626504, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
+  SpritesAnimation: {fileID: 9100000, guid: 0bac329f9b609db44b5ac3e0c60ea53f, type: 2}

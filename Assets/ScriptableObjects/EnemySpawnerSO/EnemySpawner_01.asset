@@ -13,27 +13,35 @@ MonoBehaviour:
   m_Name: EnemySpawner_01
   m_EditorClassIdentifier: 
   _wavesArray:
-  - timerSpawn: 10
-    enemyWaveArray:
-    - {fileID: 11400000, guid: 0994f90e2520ba84daffa013eced54ce, type: 2}
+  - timerSpawn: 5
+    enemyWaveArray: {fileID: 11400000, guid: 0994f90e2520ba84daffa013eced54ce, type: 2}
+    NumberOfEnemies: 5
   - timerSpawn: 20
-    enemyWaveArray:
-    - {fileID: 11400000, guid: 35ddc0a74e5d63e41b882edda9df6cdd, type: 2}
+    enemyWaveArray: {fileID: 11400000, guid: 35ddc0a74e5d63e41b882edda9df6cdd, type: 2}
+    NumberOfEnemies: 10
   - timerSpawn: 25
-    enemyWaveArray:
-    - {fileID: 11400000, guid: 4168197daf9066f4c863b82c80c8de61, type: 2}
+    enemyWaveArray: {fileID: 11400000, guid: 4168197daf9066f4c863b82c80c8de61, type: 2}
+    NumberOfEnemies: 5
   _enemyStreamArray:
   - timerEndSpawn: 20
-    timerMinSpawn: 2.5
-    timerMaxSpawn: 3.5
-    enemyTypeArray:
-    - {fileID: 11400000, guid: ec7753252d71466448514aabe89e2da6, type: 2}
-    - {fileID: 11400000, guid: 0e298e7bf8abe2e43a0cf6300dcb1365, type: 2}
-    - {fileID: 11400000, guid: 30b484c6c8db1f041ba152f7d6ae4e84, type: 2}
-  - timerEndSpawn: 20
-    timerMinSpawn: 2.5
-    timerMaxSpawn: 3.5
+    timerMinSpawn: 1
+    timerMaxSpawn: 4
     enemyTypeArray:
     - {fileID: 11400000, guid: caad7e2401ab3634ab7f8157e25c50e0, type: 2}
+  - timerEndSpawn: 20
+    timerMinSpawn: 1
+    timerMaxSpawn: 3
+    enemyTypeArray:
     - {fileID: 11400000, guid: 30b484c6c8db1f041ba152f7d6ae4e84, type: 2}
+  - timerEndSpawn: 20
+    timerMinSpawn: 1
+    timerMaxSpawn: 3
+    enemyTypeArray:
     - {fileID: 11400000, guid: 0e298e7bf8abe2e43a0cf6300dcb1365, type: 2}
+  - timerEndSpawn: 120
+    timerMinSpawn: 1
+    timerMaxSpawn: 3
+    enemyTypeArray:
+    - {fileID: 11400000, guid: 0e298e7bf8abe2e43a0cf6300dcb1365, type: 2}
+    - {fileID: 11400000, guid: 30b484c6c8db1f041ba152f7d6ae4e84, type: 2}
+    - {fileID: 11400000, guid: caad7e2401ab3634ab7f8157e25c50e0, type: 2}
