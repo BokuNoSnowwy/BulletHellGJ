@@ -109,8 +109,11 @@ public class Player : Entity
 
     protected override void Die()
     {
+        //deathMenu.SetActive(true);
+
         _gameManager.SetGameState(GameState.Pause);
-        deathMenu.SetActive(true);
+        //Time.timeScale = 0f;
+
         //TODO Disable player controller
         //TODO Death animation 
     }

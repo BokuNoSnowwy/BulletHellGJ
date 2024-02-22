@@ -6,11 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 7b587fd6e6ecc9544846e4de2dd0c529
-  - enabled: 1
-    path: Assets/Joystick Pack/Test/Example Scene.unity
-    guid: 414bddd31c5ea4f4c9f5d1452e5bbb41
+    path: Assets/Scenes/MainMenuV2.unity
+    guid: 33ce5940421417a439a40db554a320cc
   - enabled: 1
     path: Assets/Scenes/GameLoop.unity
     guid: 798c5d10a6eeda345b296a49ef242f83
