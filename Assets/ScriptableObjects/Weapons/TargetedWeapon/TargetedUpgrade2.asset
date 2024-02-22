@@ -21,4 +21,4 @@ MonoBehaviour:
   projectileSpdMultiplier: 0
   weaponReloadMultiplier: 0
   weaponTimeBetweenShootMultiplier: 30
-  projectilePrefab: {fileID: 7074079520679907623, guid: a532bc03008c5454da974b21222cc26a, type: 3}
+  projectilePrefab: {fileID: 2323562116905594707, guid: a532bc03008c5454da974b21222cc26a, type: 3}

@@ -8,14 +8,9 @@ public enum WeaponProjectileType
     FollowPlayerDirection,
     EveryDirection
 }
-[CreateAssetMenu(fileName = "WeaponPlayer", menuName = "ScriptableObjects/WeaponPlayerSO", order = 1)]
-public class WeaponPlayerSO : ScriptableObject
+[CreateAssetMenu(fileName = "WeaponPlayer", menuName = "ScriptableObjects/Weapons/WeaponPlayerSO", order = 1)]
+public class WeaponPlayerSO : ItemPlayerSO
 {
-    [Header("Weapon Player Info")]
-    public string weaponName;
-    public Sprite weaponSprite;
-    public string weaponDescription;
-
     [Header("Weapon Stats")]
     public WeaponProjectileType projectileType;
     public int baseProjectileNb;
