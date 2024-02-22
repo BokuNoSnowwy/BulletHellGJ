@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929e7c8c341d19a418a380e39b3161da, type: 3}
   m_Name: TargetedUpgrade3
   m_EditorClassIdentifier: 
-  upgradeName: 
-  upgradeSprite: {fileID: 0}
-  upgradeDescription: 
+  upgradeDescription: + 2 Proj, +20% Dmg, +20% Spd, +20% Scale, -20% Reload Time
   projectileToAdd: 2
   projectileDmgMultiplier: 20
   projectileScaleMultiplier: 20

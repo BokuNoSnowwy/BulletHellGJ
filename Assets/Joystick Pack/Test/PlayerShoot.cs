@@ -27,61 +27,64 @@ public class PlayerShoot : MonoBehaviour
         
         foreach (var weapon in _playerInventory.PlayerWeaponArray)
         {
-            weapon.timerShoot -= Time.deltaTime;
-            if (weapon.timerShoot <= 0)
+            if (weapon.weaponPlayerSo != null)
             {
-                int projectileNb = weapon.GetTotalProjectiles();
-                float projectileDmg = weapon.GetTotalProjectileDamage() * _playerInventory.GetTotalPassiveProjectileDamageMultiplier();
-                float projectileSpd = weapon.GetTotalProjectileSpd() * _playerInventory.GetTotalPassiveProjectileSpeed();
-                float projectileScale = weapon.GetTotalProjectileScale() * _playerInventory.GetTotalPassiveProjectileScale();
-                
-                switch (weapon.weaponPlayerSo.projectileType)
+                weapon.timerShoot -= Time.deltaTime;
+                if (weapon.timerShoot <= 0)
                 {
-                    case WeaponProjectileType.EveryDirection :
-                        //TODO Get the number of projectile and divide it from 360 degres 
-                        for (int i = 0; i < projectileNb; i++)
-                        {
-                            PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
-                            playerProjectile.transform.position = transform.position;
-                            float angle = (360f / projectileNb) * i;
-                            playerProjectile.transform.rotation = Quaternion.Euler(0,0,angle);
-                            playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
-                        }
-                        break;
-                    case WeaponProjectileType.FollowPlayerDirection : 
-                        //TODO Multiple projectiles in a row (intern timers)
-                        for (int i = 0; i < projectileNb; i++)
-                        {
-                            StartCoroutine(ShootAfterTime(weapon.GetTotalTimerBetweenShoot() * i, () =>
+                    int projectileNb = weapon.GetTotalProjectiles();
+                    float projectileDmg = weapon.GetTotalProjectileDamage() * _playerInventory.GetTotalPassiveProjectileDamageMultiplier();
+                    float projectileSpd = weapon.GetTotalProjectileSpd() * _playerInventory.GetTotalPassiveProjectileSpeed();
+                    float projectileScale = weapon.GetTotalProjectileScale() * _playerInventory.GetTotalPassiveProjectileScale();
+                
+                    switch (weapon.weaponPlayerSo.projectileType)
+                    {
+                        case WeaponProjectileType.EveryDirection :
+                            //TODO Get the number of projectile and divide it from 360 degres 
+                            for (int i = 0; i < projectileNb; i++)
                             {
                                 PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
                                 playerProjectile.transform.position = transform.position;
-                                playerProjectile.transform.up = -shootingTransform.right;
+                                float angle = (360f / projectileNb) * i;
+                                playerProjectile.transform.rotation = Quaternion.Euler(0,0,angle);
                                 playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
-                            }));
-                        } 
-                        break;
-                    case WeaponProjectileType.TargetAtNearestEnemy : 
-                        //TODO Time between shoots not working properly 
-                        for (int i = 0; i < projectileNb; i++)
-                        {
-                            StartCoroutine(ShootAfterTime(weapon.GetTotalTimerBetweenShoot() * i, () =>
+                            }
+                            break;
+                        case WeaponProjectileType.FollowPlayerDirection : 
+                            //TODO Multiple projectiles in a row (intern timers)
+                            for (int i = 0; i < projectileNb; i++)
                             {
-                                Vector3 nearestEnemyPos = GetNearestEnemyPos();
-                                if (nearestEnemyPos != Vector3.zero)
+                                StartCoroutine(ShootAfterTime(weapon.GetTotalTimerBetweenShoot() * i, () =>
                                 {
                                     PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
                                     playerProjectile.transform.position = transform.position;
-                                    float angle = PointRightAtTarget(nearestEnemyPos);
-                                    playerProjectile.transform.rotation = Quaternion.Euler(0,0,angle);
+                                    playerProjectile.transform.up = -shootingTransform.right;
                                     playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
-                                }
-                            }));
-                        }
-                        break;
-                }
+                                }));
+                            } 
+                            break;
+                        case WeaponProjectileType.TargetAtNearestEnemy : 
+                            //TODO Time between shoots not working properly 
+                            for (int i = 0; i < projectileNb; i++)
+                            {
+                                StartCoroutine(ShootAfterTime(weapon.GetTotalTimerBetweenShoot() * i, () =>
+                                {
+                                    Vector3 nearestEnemyPos = GetNearestEnemyPos();
+                                    if (nearestEnemyPos != Vector3.zero)
+                                    {
+                                        PlayerProjectile playerProjectile = _poolingManager.PlayerProjectilesPool.Get();
+                                        playerProjectile.transform.position = transform.position;
+                                        float angle = PointRightAtTarget(nearestEnemyPos);
+                                        playerProjectile.transform.rotation = Quaternion.Euler(0,0,angle);
+                                        playerProjectile.SetupProjectile(projectileDmg, projectileSpd, projectileScale);
+                                    }
+                                }));
+                            }
+                            break;
+                    }
 
-                weapon.timerShoot = weapon.GetTotalReloadTimer() * _playerInventory.GetTotalPassiveFireRateMultiplier();
+                    weapon.timerShoot = weapon.GetTotalReloadTimer() * _playerInventory.GetTotalPassiveFireRateMultiplier();
+                }
             }
         }
     }

@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929e7c8c341d19a418a380e39b3161da, type: 3}
   m_Name: TargetedUpgrade2
   m_EditorClassIdentifier: 
-  upgradeName: 
-  upgradeSprite: {fileID: 0}
-  upgradeDescription: 
+  upgradeDescription: +30% Dmg, +20% Scale, -30% Reload Time
   projectileToAdd: 0
   projectileDmgMultiplier: 30
   projectileScaleMultiplier: 20
   projectileSpdMultiplier: 0
-  weaponReloadMultiplier: 0
-  weaponTimeBetweenShootMultiplier: 30
+  weaponReloadMultiplier: 30
+  weaponTimeBetweenShootMultiplier: 0
   projectilePrefab: {fileID: 2323562116905594707, guid: a532bc03008c5454da974b21222cc26a, type: 3}

@@ -5,19 +5,19 @@ using UnityEngine.Serialization;
 public class Player : Entity
 {
     public static Player Instance;
-
-   
-    private float lastAttackTime;
+    
     //Exp an Level
     [SerializeField] AnimationCurve ExpCapCurve;
     public int currentExp;
     public int maxExp = 25;
     public int currentLevel = 0 ;
 
-    // Multiplier
-    public float attackSpeedMultiplier = 1f;
-    public float movementSpeedMultiplier = 1f;
-
+    [Header("XP Panel")] 
+    [SerializeField] 
+    private GameObject _levelUpPanel;
+    [SerializeField] 
+    private PlayerInventory _playerInventory;
+    
     private GameManager _gameManager;
 
     
@@ -36,6 +36,10 @@ public class Player : Entity
     void Start()
     {
         _gameManager = GameManager.Instance;
+        if (!_playerInventory)
+        {
+            _playerInventory = GetComponent<PlayerInventory>();
+        }
     }
     void Update()
     {
@@ -63,11 +67,20 @@ public class Player : Entity
             currentExp = currentExp-maxExp;
             ChangeLevelCap();
             Debug.Log("Level Up! Current Level: " + currentLevel);
+            LevelingUp();
         }
     }
     private void ChangeLevelCap()
     {
         maxExp = (int)ExpCapCurve.Evaluate(currentLevel);
+    }
+
+    [ContextMenu("LevelingUp")]
+    private void LevelingUp()
+    {
+        _gameManager.SetGameState(GameState.Pause);
+        _playerInventory.DisplayUpgrades(()=> _levelUpPanel.SetActive(false));
+        _levelUpPanel.SetActive(true);
     }
     public override void TakeDamage(float damage)
     {

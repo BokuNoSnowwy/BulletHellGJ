@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929e7c8c341d19a418a380e39b3161da, type: 3}
   m_Name: JoystickTargetedUpgrade1
   m_EditorClassIdentifier: 
-  upgradeName: 
-  upgradeSprite: {fileID: 0}
-  upgradeDescription: 
+  upgradeDescription: + 2 Proj, +30% Dmg, +20% Spd
   projectileToAdd: 2
   projectileDmgMultiplier: 30
   projectileScaleMultiplier: 0
   projectileSpdMultiplier: 20
   weaponReloadMultiplier: 0
+  weaponTimeBetweenShootMultiplier: 0
   projectilePrefab: {fileID: 0}

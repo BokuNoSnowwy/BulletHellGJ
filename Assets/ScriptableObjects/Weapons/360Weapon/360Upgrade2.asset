@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929e7c8c341d19a418a380e39b3161da, type: 3}
   m_Name: 360Upgrade2
   m_EditorClassIdentifier: 
-  upgradeName: 
-  upgradeSprite: {fileID: 0}
-  upgradeDescription: 
+  upgradeDescription: -30 Reload %, +20% Scale
   projectileToAdd: 0
   projectileDmgMultiplier: 0
   projectileScaleMultiplier: 20
   projectileSpdMultiplier: 0
   weaponReloadMultiplier: 30
+  weaponTimeBetweenShootMultiplier: 0
   projectilePrefab: {fileID: 0}

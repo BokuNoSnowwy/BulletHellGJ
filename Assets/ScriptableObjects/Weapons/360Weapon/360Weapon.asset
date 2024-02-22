@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8b5320b64931942ba531536b64dc72, type: 3}
   m_Name: 360Weapon
   m_EditorClassIdentifier: 
-  weaponName: 
-  weaponSprite: {fileID: 0}
-  weaponDescription: 
+  itemName: Shotgun
+  itemSprite: {fileID: -762074860, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
+  itemDescription: Shoot projectiles around you
   projectileType: 2
   baseProjectileNb: 4
   baseProjectileDmg: 5

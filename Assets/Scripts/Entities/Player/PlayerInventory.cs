@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 
 [Serializable]
@@ -132,14 +135,20 @@ public class PlayerPassive
 
 public class PlayerInventory : MonoBehaviour
 {
+    [Header("Items Array")]
     [SerializeField] 
     private PlayerWeapon[] _playerWeaponArray;
     [SerializeField] 
     private PlayerPassive[] _playerPassiveArray;
-    // [SerializeField] 
-    // private PassivePlayerSO[] _playerPassiveArray;
+    
     private int _indexWeaponInventory;
     private int _indexPassiveInventory;
+
+    [Header("XP Bonus")]
+    [SerializeField]
+    private ItemPlayerSO[] _itemGame;
+    [SerializeField]
+    private ItemChoice[] _itemChoiceArray = new ItemChoice[3];
 
     private void Start()
     {
@@ -148,42 +157,174 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddWeaponToArray(WeaponPlayerSO weaponSO)
     {
-        if (_indexWeaponInventory < _playerWeaponArray.Length)
+        PlayerWeapon playerWeapon = _playerWeaponArray.ToList().Find(weapon => weaponSO == weapon.weaponPlayerSo);
+        
+        if (playerWeapon != null)
         {
-            _playerWeaponArray[_indexWeaponInventory] = new PlayerWeapon(weaponSO);
-        }
-        else
-        {
-            Debug.LogError("Too much weapons yield ");
-        }
-
-        _indexWeaponInventory++;
-    }
-
-    public void AddPassiveToArray(PassivePlayerSO passiveSO)
-    {
-        if (_indexPassiveInventory < _playerPassiveArray.Length)
-        {
-            _playerPassiveArray[_indexPassiveInventory] = new PlayerPassive(passiveSO);
+            // Upgrade
+            playerWeapon.upgradeIndex++;
             
-            // Add max life 
-            int maxLife = GetTotalMaxLife();
-            if (maxLife != 0)
+            //Check fully upgraded
+            if (playerWeapon.upgradeIndex > playerWeapon.weaponPlayerSo.weaponLevelArray.Length)
             {
-                Player.Instance.AddMaxLife(maxLife);
+                _itemGame.ToList().Remove(playerWeapon.weaponPlayerSo);
             }
         }
         else
         {
-            Debug.LogError("Too much passives yield ");
+            // Add new
+            if (CheckIfWeaponHasEmpty())
+            {
+                _playerWeaponArray[_indexWeaponInventory] = new PlayerWeapon(weaponSO);
+                // Add max life 
+                int maxLife = GetTotalMaxLife();
+                if (maxLife != 0)
+                {
+                    Player.Instance.AddMaxLife(maxLife);
+                }
+                
+                _indexWeaponInventory++;
+            }
+            else
+            {
+                Debug.LogError(_itemGame.Length);
+                _itemGame.ToList().RemoveAll(weapon => (WeaponPlayerSO) weapon == _playerWeaponArray.ToList().Find(playerWeapon => playerWeapon.weaponPlayerSo != (WeaponPlayerSO) weapon).weaponPlayerSo);
+                Debug.LogError(_itemGame.Length);
+            }
         }
+    }
 
-        _indexPassiveInventory++;
+    public void AddPassiveToArray(PassivePlayerSO passiveSO)
+    {
+        PlayerPassive playerPassive = _playerPassiveArray.ToList().Find(passive => passiveSO == passive.passivePlayerSo);
+        
+        if (playerPassive != null)
+        {
+            // Upgrade
+            playerPassive.upgradeIndex++;
+            
+            //Check fully upgraded
+            if (playerPassive.upgradeIndex > playerPassive.passivePlayerSo.passiveLevelArray.Length)
+            {
+                _itemGame.ToList().Remove(playerPassive.passivePlayerSo);
+            }
+        }
+        else
+        {
+            // Add new
+            if (CheckIfPassiveHasEmpty())
+            {
+                _playerPassiveArray[_indexPassiveInventory] = new PlayerPassive(passiveSO);
+                // Add max life 
+                int maxLife = GetTotalMaxLife();
+                if (maxLife != 0)
+                {
+                    Player.Instance.AddMaxLife(maxLife);
+                }
+                
+                _indexPassiveInventory++;
+            }
+            else
+            {
+                Debug.LogError(_itemGame.Length);
+                _itemGame.ToList().RemoveAll(passive => (PassivePlayerSO) passive == _playerPassiveArray.ToList().Find(playerPassive => playerPassive.passivePlayerSo != (PassivePlayerSO) passive).passivePlayerSo);
+                Debug.LogError(_itemGame.Length);
+            }
+        }
+    }
+
+    public void DisplayUpgrades(UnityAction callbackClosePanel)
+    {
+        List<ItemPlayerSO> itemArray = new List<ItemPlayerSO>(_itemGame);
+        
+        ItemPlayerSO[] newItemArray = new ItemPlayerSO[3];
+
+        for (int i = 0; i < newItemArray.Length; i++)
+        {
+            ItemPlayerSO itemPlayer = itemArray[Random.Range(0, itemArray.Count)];
+            newItemArray[i] = itemPlayer;
+            itemArray.Remove(itemPlayer);
+        }
+        
+        for (int i = 0; i < _itemChoiceArray.Length; i++)
+        {
+            string itemName = newItemArray[i].itemName;
+            string itemDescription = newItemArray[i].itemDescription;
+
+            //Check if item already in array, then 
+            if (newItemArray.GetType() == typeof(WeaponPlayerSO))
+            {
+                foreach (var playerWeapon in _playerWeaponArray)
+                {
+                    if (playerWeapon.weaponPlayerSo == newItemArray[i])
+                    {
+                        itemName = playerWeapon.weaponPlayerSo.itemName + " Lvl " + playerWeapon.upgradeIndex + 1;
+                        itemDescription = playerWeapon.weaponPlayerSo.itemDescription;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var playerPassive in _playerPassiveArray)
+                {
+                    if (playerPassive.passivePlayerSo == newItemArray[i])
+                    {
+                        itemName = playerPassive.passivePlayerSo.itemName + " Lvl " + playerPassive.upgradeIndex;
+                        itemDescription = playerPassive.passivePlayerSo.itemName;
+                    }
+                }
+            }
+
+            _itemChoiceArray[i].SetupItem(itemName, itemDescription, newItemArray[i].itemSprite);
+
+            int index = i;
+            _itemChoiceArray[i].AddListenerButton(()=>
+            {
+                Debug.LogError(newItemArray[index].GetType());
+                
+                if (newItemArray[index].GetType() == typeof(WeaponPlayerSO))
+                {
+                    AddWeaponToArray((WeaponPlayerSO)newItemArray[index]);
+                }
+                else
+                {
+                    AddPassiveToArray((PassivePlayerSO)newItemArray[index]);
+                }
+                
+                callbackClosePanel.Invoke();
+            });
+        }
     }
 
     public void ResetInventory()
     {
         
+    }
+
+    private bool CheckIfPassiveHasEmpty()
+    {
+        foreach (var passive in _playerPassiveArray)
+        {
+            if (passive.passivePlayerSo == null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    private bool CheckIfWeaponHasEmpty()
+    {
+        foreach (var weapon in _playerWeaponArray)
+        {
+            if (weapon.weaponPlayerSo == null)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #region PassiveBuff
@@ -194,12 +335,15 @@ public class PlayerInventory : MonoBehaviour
         int maxlifeFromUpgrades = 0;
         foreach (var passive in _playerPassiveArray)
         {
-            totalMaxLife += passive.passivePlayerSo.baseMaxLife;
-            if (passive.upgradeIndex != 0)
+            if (passive.passivePlayerSo != null)
             {
-                for (int i = 0; i < passive.upgradeIndex; i++)
+                totalMaxLife += passive.passivePlayerSo.baseMaxLife;
+                if (passive.upgradeIndex != 0)
                 {
-                    maxlifeFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].maxLife;
+                    for (int i = 0; i < passive.upgradeIndex; i++)
+                    {
+                        maxlifeFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].maxLife;
+                    }
                 }
             }
         }
@@ -233,12 +377,15 @@ public class PlayerInventory : MonoBehaviour
         float damageFromUpgrades = 0;
         foreach (var passive in _playerPassiveArray)
         {
-            totalDamage += passive.passivePlayerSo.baseProjectileDamageMultiplier;
-            if (passive.upgradeIndex != 0)
+            if (passive.passivePlayerSo != null)
             {
-                for (int i = 0; i < passive.upgradeIndex; i++)
+                totalDamage += passive.passivePlayerSo.baseProjectileDamageMultiplier;
+                if (passive.upgradeIndex != 0)
                 {
-                    damageFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].projectileDamageMultiplier;
+                    for (int i = 0; i < passive.upgradeIndex; i++)
+                    {
+                        damageFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].projectileDamageMultiplier;
+                    }
                 }
             }
         }
@@ -253,12 +400,15 @@ public class PlayerInventory : MonoBehaviour
         float fireRateFromUpgrades = 0;
         foreach (var passive in _playerPassiveArray)
         {
-            fireRate += passive.passivePlayerSo.baseWeaponFireRateMultiplier;
-            if (passive.upgradeIndex != 0)
+            if (passive.passivePlayerSo != null)
             {
-                for (int i = 0; i < passive.upgradeIndex; i++)
+                fireRate += passive.passivePlayerSo.baseWeaponFireRateMultiplier;
+                if (passive.upgradeIndex != 0)
                 {
-                    fireRateFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].weaponFireRateMultiplier;
+                    for (int i = 0; i < passive.upgradeIndex; i++)
+                    {
+                        fireRateFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].weaponFireRateMultiplier;
+                    }
                 }
             }
         }
@@ -272,12 +422,15 @@ public class PlayerInventory : MonoBehaviour
         float projectileSpeedFromUpgrades = 0;
         foreach (var passive in _playerPassiveArray)
         {
-            projectileSpeed += passive.passivePlayerSo.baseProjectileSpdMultiplier;
-            if (passive.upgradeIndex != 0)
+            if (passive.passivePlayerSo != null)
             {
-                for (int i = 0; i < passive.upgradeIndex; i++)
+                projectileSpeed += passive.passivePlayerSo.baseProjectileSpdMultiplier;
+                if (passive.upgradeIndex != 0)
                 {
-                    projectileSpeedFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].projectileSpdMultiplier;
+                    for (int i = 0; i < passive.upgradeIndex; i++)
+                    {
+                        projectileSpeedFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].projectileSpdMultiplier;
+                    }
                 }
             }
         }
@@ -292,12 +445,15 @@ public class PlayerInventory : MonoBehaviour
         float projectileScaleFromUpgrades = 0;
         foreach (var passive in _playerPassiveArray)
         {
-            projectileScale += passive.passivePlayerSo.baseProjectileScaleMultiplier;
-            if (passive.upgradeIndex != 0)
+            if (passive.passivePlayerSo != null)
             {
-                for (int i = 0; i < passive.upgradeIndex; i++)
+                projectileScale += passive.passivePlayerSo.baseProjectileScaleMultiplier;
+                if (passive.upgradeIndex != 0)
                 {
-                    projectileScaleFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].projectileScaleMultiplier;
+                    for (int i = 0; i < passive.upgradeIndex; i++)
+                    {
+                        projectileScaleFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].projectileScaleMultiplier;
+                    }
                 }
             }
         }
