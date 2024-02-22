@@ -12,6 +12,12 @@ public class Player : Entity
     public int maxExp = 25;
     public int currentLevel = 0 ;
 
+    //Life
+    [Header("Life")]
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+    
     [Header("XP Panel")] 
     [SerializeField] 
     private GameObject _levelUpPanel;
@@ -40,6 +46,7 @@ public class Player : Entity
         {
             _playerInventory = GetComponent<PlayerInventory>();
         }
+        healthBar.SetMaxHealth(maxHealth);
     }
     void Update()
     {
@@ -85,6 +92,7 @@ public class Player : Entity
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        healthBar.SetHealth(currentHealth);
     }
 
     public void AddMaxLife(int maxLife)
