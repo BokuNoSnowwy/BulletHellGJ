@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e75812cddaa3547ba2acb9ffe1f698, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
-  AttackDamage: 4
-  Speed: 5
-  MaxLife: 10
-  Sprite: {fileID: 1782705385, guid: d33598d781682e049a53a0a13104ef29, type: 3}
+  AttackDamage: 5
+  Speed: 1
+  MaxLife: 50
+  SpritesAnimation: {fileID: 9100000, guid: a2643e3610f7a124598f7abe6e40a792, type: 2}

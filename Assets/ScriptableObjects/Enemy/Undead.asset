@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e75812cddaa3547ba2acb9ffe1f698, type: 3}
   m_Name: Undead
   m_EditorClassIdentifier: 
-  AttackDamage: 4
-  Speed: 5
-  MaxLife: 10
-  Sprite: {fileID: 613658156, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+  AttackDamage: 3
+  Speed: 2
+  MaxLife: 5
+  SpritesAnimation: {fileID: 9100000, guid: 0bac329f9b609db44b5ac3e0c60ea53f, type: 2}
