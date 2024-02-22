@@ -15,9 +15,15 @@ public class JoystickPlayerExample : MonoBehaviour
     public Transform rotationShooting;
 
     private PlayerInventory _playerInventory;
+    private GameState _gameState;
+    private GameManager _gameManager;
+    
 
     private void Start()
     {
+        _gameManager = GameManager.Instance;
+        _gameManager.AddGameStateChangeListener(ChangeGameState);
+        
         _playerInventory = GetComponent<PlayerInventory>();
     }
 
@@ -27,7 +33,7 @@ public class JoystickPlayerExample : MonoBehaviour
 
         //transform.Translate(direction * speed * Time.deltaTime);
 
-        if (GameManager.Instance.GameState != GameState.Game)
+        if (_gameState == GameState.Pause)
         {
             return;
         }
@@ -68,5 +74,8 @@ public class JoystickPlayerExample : MonoBehaviour
         
     }
 
-    
+    private void ChangeGameState(GameState gameState)
+    {
+        _gameState = gameState;
+    }
 }

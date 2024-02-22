@@ -85,9 +85,12 @@ public class Player : Entity
     [ContextMenu("LevelingUp")]
     private void LevelingUp()
     {
-        _gameManager.SetGameState(GameState.Pause);
-        _playerInventory.DisplayUpgrades(()=> _levelUpPanel.SetActive(false));
-        _levelUpPanel.SetActive(true);
+        if (!_playerInventory.IsItemGameEmpty())
+        {
+            _gameManager.SetGameState(GameState.Pause);
+            _playerInventory.DisplayUpgrades(()=> _levelUpPanel.SetActive(false));
+            _levelUpPanel.SetActive(true);
+        }
     }
     public override void TakeDamage(float damage)
     {

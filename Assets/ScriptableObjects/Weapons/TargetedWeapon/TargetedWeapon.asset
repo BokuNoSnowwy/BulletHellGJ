@@ -16,10 +16,10 @@ MonoBehaviour:
   itemSprite: {fileID: -205726582, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   itemDescription: Shoot projectiles toward nearest enemy
   projectileType: 0
-  baseProjectileNb: 2
-  baseProjectileDmg: 2
-  baseProjectileSpd: 2
-  baseWeaponReloadTime: 1.2
+  baseProjectileNb: 1
+  baseProjectileDmg: 10
+  baseProjectileSpd: 4
+  baseWeaponReloadTime: 1
   baseTimeBetweenShoot: 0.2
   basePlayerProjectilePrefab: {fileID: 2323562116905594707, guid: a532bc03008c5454da974b21222cc26a, type: 3}
   weaponLevelArray:

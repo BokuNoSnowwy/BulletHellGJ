@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void StartGame()
     {
-        _gameState = GameState.Game;
+        SetGameState(GameState.Game);
         _timerGame = 0;
     }
 
@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour
     }
 
     public float TimerGame => _timerGame;
-
-    public GameState GameState => _gameState;
+    public GameState GameState
+    {
+        get => _gameState;
+    }
 }

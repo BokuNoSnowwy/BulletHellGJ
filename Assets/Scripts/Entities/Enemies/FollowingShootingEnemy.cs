@@ -31,6 +31,11 @@ public class FollowingShootingEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (_gameState == GameState.Pause)
+        {
+            return;
+        }
+        
         Tick();
         
         // Flip update

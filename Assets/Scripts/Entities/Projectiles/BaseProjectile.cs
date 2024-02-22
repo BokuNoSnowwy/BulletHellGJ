@@ -14,15 +14,24 @@ public class BaseProjectile : MonoBehaviour
 
     protected ObjectsPoolingManager _poolingManager;
     protected Vector3 baseScale;
+    protected GameState _gameState;
+    protected GameManager _gameManager;
     private void Start()
     {
         _poolingManager = ObjectsPoolingManager.Instance;
-
+        _gameManager = GameManager.Instance;
+        _gameState = _gameManager.GameState;
+        _gameManager.AddGameStateChangeListener(ChangeGameState);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_gameState == GameState.Pause)
+        {
+            return;
+        }
+        
         if (_projectileIsSetup)
         {
             transform.Translate(transform.right * Time.deltaTime * _projectileSpd, Space.World); 
@@ -32,6 +41,11 @@ public class BaseProjectile : MonoBehaviour
         {
             ReleaseFromPool();
         }
+    }
+    
+    protected void ChangeGameState(GameState gameState)
+    {
+        _gameState = gameState;
     }
     
     public void OnTakenFromPool()

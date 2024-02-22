@@ -13,17 +13,28 @@ public class PlayerShoot : MonoBehaviour
 
     private PlayerInventory _playerInventory;
     private ObjectsPoolingManager _poolingManager;
-    
+    private GameState _gameState;
+    private GameManager _gameManager;
 
     void Start()
     {
+
+        _gameManager = GameManager.Instance;
+        _gameState = _gameManager.GameState;
+        _gameManager.AddGameStateChangeListener(ChangeGameState);
+        
         _poolingManager = ObjectsPoolingManager.Instance;
         _playerInventory = GetComponent<PlayerInventory>();
+        
     }
 
     void Update()
     {
         //nearest enemy 
+        if (_gameState == GameState.Pause)
+        {
+            return;
+        }
         
         foreach (var weapon in _playerInventory.PlayerWeaponArray)
         {
@@ -89,6 +100,11 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    private void ChangeGameState(GameState gameState)
+    {
+        _gameState = gameState;
+    }
+    
     private IEnumerator ShootAfterTime(float time, UnityAction callback)
     {
         yield return new WaitForSeconds(time);
