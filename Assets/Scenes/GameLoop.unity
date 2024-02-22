@@ -313,7 +313,7 @@ MonoBehaviour:
   _playerWeapons:
   - weaponPlayerSo: {fileID: 11400000, guid: c143c40e96dbcfc499f32ec23d7297c0, type: 2}
     timerShoot: 2
-    upgradeIndex: 2
+    upgradeIndex: 3
   numProjectiles: 10
 --- !u!1 &45276976
 GameObject:

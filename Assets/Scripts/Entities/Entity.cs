@@ -6,11 +6,10 @@ using UnityEngine.Serialization;
 
 public class Entity : MonoBehaviour
 {
-    [FormerlySerializedAs("maxLife")]
     [Header("Entity Stats")]
     [SerializeField]
     protected float _maxLife;
-    [FormerlySerializedAs("movementSpeed")] [SerializeField]
+    [SerializeField]
     protected float _movementSpeed;
     
     protected float _life;

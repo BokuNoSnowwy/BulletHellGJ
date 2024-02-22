@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8067b65939f14408fea24485e17151, type: 3}
+  m_Name: ProjectileSpd
+  m_EditorClassIdentifier: 
+  itemName: 
+  itemSprite: {fileID: 0}
+  itemDescription: 
+  baseMaxLife: 0
+  baseMovementSpeedMultiplier: 0
+  baseProjectileDamageMultiplier: 0
+  baseWeaponFireRateMultiplier: 0
+  baseProjectileSpdMultiplier: 10
+  baseProjectileScaleMultiplier: 0
+  passiveLevelArray:
+  - {fileID: 11400000, guid: 5f3507a10a120bd49b9acb111cb0b176, type: 2}
+  - {fileID: 11400000, guid: a3f11497ed4ec084b813e38dddf79329, type: 2}
+  - {fileID: 11400000, guid: bd630514332ce4b45b73aaa0d857adba, type: 2}

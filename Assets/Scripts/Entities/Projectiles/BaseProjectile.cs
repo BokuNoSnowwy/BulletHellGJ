@@ -13,9 +13,11 @@ public class BaseProjectile : MonoBehaviour
     protected bool _projectileIsSetup = false;
 
     protected ObjectsPoolingManager _poolingManager;
+    protected Vector3 baseScale;
     private void Start()
     {
         _poolingManager = ObjectsPoolingManager.Instance;
+
     }
 
     // Update is called once per frame
@@ -35,13 +37,18 @@ public class BaseProjectile : MonoBehaviour
     public void OnTakenFromPool()
     {
         gameObject.SetActive(true);
+
+        if (baseScale == Vector3.zero)
+        {
+            baseScale = transform.localScale;
+        }
     }
 
-    public void SetupProjectile(float dmg, float spd, float scale = 1, Sprite sprite = null)
+    public void SetupProjectile(float dmg, float spd, float scale = 0, Sprite sprite = null)
     {
         _projectileSpd = spd;
         _projectileDmg = dmg;
-        //transform.localScale *= scale;
+        transform.localScale = baseScale * (1 + scale);
         
         if (sprite != null)
         {

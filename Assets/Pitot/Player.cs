@@ -59,6 +59,12 @@ public class Player : Entity
         base.TakeDamage(damage);
     }
 
+    public void AddMaxLife(int maxLife)
+    {
+        _maxLife += maxLife;
+        _life += maxLife;
+    }
+
     protected override void Die()
     {
         _gameManager.SetGameState(GameState.Pause);
