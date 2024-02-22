@@ -19,11 +19,11 @@ public class EnemySpawnSO : ScriptableObject
     [SerializeField]
     [Range(0, 100)] private float _percentageSideSpawn;
     [SerializeField]
-    private GameObject _enemyPrefab;
+    private EnemyParameters _enemyPrefab;
 
     public CameraSide SideSpawn => _sideSpawn;
 
     public float PercentageSideSpawn => _percentageSideSpawn;
 
-    public GameObject EnemyPrefab => _enemyPrefab;
+    public EnemyParameters EnemyPrefab => _enemyPrefab;
 }

@@ -75,19 +75,6 @@ public class ObjectsPoolingManager : MonoBehaviour
         return newObj;
     }
     #endregion
-    void OnReturnedToPool(GameObject gObject)
-    {
-        gObject.SetActive(false);
-    }
-    void OnTakeFromPool(GameObject gObject)
-    {
-        gObject.SetActive(true);
-    }
-    void OnDestroyPoolObject(GameObject gObject)
-    {
-        Destroy(gObject);
-    }
-    
     // Player Projectile
     
     void OnReturnedPlayerProjectileToPool(PlayerProjectile projectile)
@@ -137,7 +124,7 @@ public class ObjectsPoolingManager : MonoBehaviour
     }
     void OnTakeEnemyFromPool(Enemy enemy)
     {
-        enemy.OnTakenFromPool();
+        //enemy.OnTakenFromPool();
     }
     void OnTakeExpFromPool(ExperiencePoint exp)
     {
@@ -147,7 +134,8 @@ public class ObjectsPoolingManager : MonoBehaviour
     void OnDestroyEnemyPoolObject(Enemy enemy)
     {
         Destroy(enemy.gameObject);
-    }void OnDestroyExpPoolObject(ExperiencePoint exp)
+    }
+    void OnDestroyExpPoolObject(ExperiencePoint exp)
     {
         Destroy(exp.gameObject);
     }

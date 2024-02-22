@@ -101,9 +101,9 @@ public class EnemySpawner : MonoBehaviour
         _enemyStreamOrderedArray = _spawnerData.EnemyStreamArray.OrderBy(stream => stream.timerEndSpawn).ToArray();
     }
 
-    private void SpawnRandom(GameObject[] enemyArray)
+    private void SpawnRandom(EnemyParameters[] enemyArray)
     {
-        GameObject randomEnemy = enemyArray[Random.Range(0, enemyArray.Length)];
+        EnemyParameters randomEnemy = enemyArray[Random.Range(0, enemyArray.Length)];
         CameraSide randomSide = (CameraSide) Random.Range(0, 4);
         float randomPercentageSide = Random.Range(0, 101);
         
@@ -129,6 +129,8 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
         enemy.gameObject.transform.position = _camera.ViewportToWorldPoint(enemySpawnPosition);
+
+        enemy.Initialization(randomEnemy);
     }
 
 }

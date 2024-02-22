@@ -103,9 +103,9 @@ MonoBehaviour:
   _maxLife: 10
   _movementSpeed: 1.5
   _spriteRenderer: {fileID: 1922147551264175457}
-  _xpPrefab: {fileID: 6107970664653693214, guid: d6343bb7932863145b4ac99dfa668c00, type: 3}
+  _animator: {fileID: 815361086028199888}
   _timerMaxImmunityPlayer: 0.1
-  _parameters: {fileID: 11400000, guid: ec7753252d71466448514aabe89e2da6, type: 2}
+  _parameters: {fileID: 0}
   _projectilePrefab: {fileID: 599466651576664928, guid: e26065c2903c86d4d9b7f3f2fb5f7b71, type: 3}
   _projectileDmg: 3
   _projectileSpd: 3.5
@@ -241,6 +241,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77d245d2484beb34cbf43c0413f4bf28, type: 3}
+--- !u!95 &815361086028199888 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6288465327602321851, guid: 77d245d2484beb34cbf43c0413f4bf28, type: 3}
+  m_PrefabInstance: {fileID: 6635389343177113195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &1922147551264175457 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5096232478344416010, guid: 77d245d2484beb34cbf43c0413f4bf28, type: 3}

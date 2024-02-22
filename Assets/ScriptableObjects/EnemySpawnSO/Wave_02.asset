@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sideSpawn: 2
   _percentageSideSpawn: 50
-  _enemyPrefab: {fileID: 5116122935175720741, guid: 2016d77fef211c44eaccd42ade133be6, type: 3}
+  _enemyPrefab: {fileID: 11400000, guid: ec7753252d71466448514aabe89e2da6, type: 2}
