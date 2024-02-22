@@ -5,5 +5,5 @@ using UnityEngine.UI;
 
 public class PickupItem : MonoBehaviour
 {
-   
+    public int heal;   
 }

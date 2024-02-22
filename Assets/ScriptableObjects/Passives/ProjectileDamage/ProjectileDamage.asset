@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Damage
   itemSprite: {fileID: 21300000, guid: 110a613c97ae3473ba6a34f0d531ca80, type: 3}
-  itemDescription: +10 base damage
+  itemDescription: +10% Projectile Dmg
   baseMaxLife: 0
   baseMovementSpeedMultiplier: 0
   baseProjectileDamageMultiplier: 10

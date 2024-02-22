@@ -357,6 +357,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6673955791685410546, guid: 22ba818d779f08944a5b687b2703de7d, type: 3}
   m_PrefabInstance: {fileID: 77803054}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &77803056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 745563019143986949, guid: 22ba818d779f08944a5b687b2703de7d, type: 3}
+  m_PrefabInstance: {fileID: 77803054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a56b0e40a72b64e8444c30936d82b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &166992801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,6 +1225,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6673955791685410546, guid: 22ba818d779f08944a5b687b2703de7d, type: 3}
   m_PrefabInstance: {fileID: 486520600}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &486520602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 745563019143986949, guid: 22ba818d779f08944a5b687b2703de7d, type: 3}
+  m_PrefabInstance: {fileID: 486520600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a56b0e40a72b64e8444c30936d82b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &501525135
 GameObject:
   m_ObjectHideFlags: 0
@@ -3431,6 +3453,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6673955791685410546, guid: 22ba818d779f08944a5b687b2703de7d, type: 3}
   m_PrefabInstance: {fileID: 1245991632}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1245991634 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 745563019143986949, guid: 22ba818d779f08944a5b687b2703de7d, type: 3}
+  m_PrefabInstance: {fileID: 1245991632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a56b0e40a72b64e8444c30936d82b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1251579724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9141680048280267310, guid: 7bf78796392f031478fcd56e2e2ff070, type: 3}
@@ -4055,6 +4088,18 @@ PrefabInstance:
       propertyPath: gradient.m_NumColorKeys
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6735967278522091322, guid: 7bf78796392f031478fcd56e2e2ff070, type: 3}
+      propertyPath: _itemChoiceArray.Array.data[0]
+      value: 
+      objectReference: {fileID: 1245991634}
+    - target: {fileID: 6735967278522091322, guid: 7bf78796392f031478fcd56e2e2ff070, type: 3}
+      propertyPath: _itemChoiceArray.Array.data[1]
+      value: 
+      objectReference: {fileID: 486520602}
+    - target: {fileID: 6735967278522091322, guid: 7bf78796392f031478fcd56e2e2ff070, type: 3}
+      propertyPath: _itemChoiceArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 77803056}
     - target: {fileID: 9141680048280267310, guid: 7bf78796392f031478fcd56e2e2ff070, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.030638456
