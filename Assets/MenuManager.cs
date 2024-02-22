@@ -27,7 +27,13 @@ public class MenuManager : MonoBehaviour
     public void Play()
     {
         isMainMenuActive = false;
-        Debug.Log("launching : GameLoop");
+        //Debug.Log("launching : GameLoop");
+        SceneManager.LoadScene("GameLoop");
+    }
+
+    public void Retry()
+    {
+        //Debug.Log("launching : GameLoop");
         SceneManager.LoadScene("GameLoop");
     }
 
@@ -48,7 +54,7 @@ public class MenuManager : MonoBehaviour
 
     public void MainMenu()
     {
-        Debug.Log("launching : MainMenuScene");
+        //Debug.Log("launching : MainMenuScene");
         SceneManager.LoadScene("MainMenuScene");
         isMainMenuActive = true;
     }
@@ -67,7 +73,7 @@ public class MenuManager : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Quit");
+        //Debug.Log("Quit");
         Application.Quit();
     }
 }
