@@ -1,22 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class Enemy : Entity
 {
     [Header("Enemy Stats")]
-    public float attackDamage = 5;
+    private float _attackDamage = 5;
 
     [SerializeField]
-    protected SpriteRenderer _sprite;
-    //TODO Put dropable prefab
+    protected SpriteRenderer _spriteRenderer;
+
     [SerializeField]
-    private GameObject _xpPrefab;   
+    private GameObject _xpPrefab;
+
     [SerializeField]
     private float _timerMaxImmunityPlayer;
+
     private float _timerImmunityPlayer;
+
     private bool _canDamagePlayer;
 
     protected Player _player;
@@ -24,20 +28,38 @@ public class Enemy : Entity
     private GameManager _gameManager;
     private GameState _gameState;
 
+    [SerializeField] protected EnemyParameters _parameters;
+
     protected void Initialization()
     {
         _gameManager = GameManager.Instance;
         _poolingManager = ObjectsPoolingManager.Instance;
         _gameManager.AddGameStateChangeListener(ChangeGameState);
         _player = Player.Instance;
+
+        if (_parameters != null)
+        {
+            _movementSpeed = _parameters.Speed;
+            _maxLife = _parameters.MaxLife;
+            _life = _parameters.MaxLife;
+            _attackDamage = _parameters.AttackDamage;
+
+            if (_parameters.Sprite != null)
+            {
+                if (_spriteRenderer == null)
+                {
+                    _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                }
+                _spriteRenderer.sprite = _parameters.Sprite;
+            }
+        }
     }
 
 
     public void OnTakenFromPool()
     {
-        if (_player == null) _player = Player.Instance;
+        Initialization();
         gameObject.SetActive(true);
-        //Debug.Log("Enemy spawned");
     }
 
     protected void Tick()
@@ -49,6 +71,7 @@ public class Enemy : Entity
 
         if (!_canDamagePlayer)
         {
+            
             _timerImmunityPlayer -= Time.deltaTime;
             if (_timerImmunityPlayer <= 0)
             {
@@ -72,8 +95,9 @@ public class Enemy : Entity
     {
         //TODO Disable enemy controller
         //TODO Death animation 
-        //TODO Drop XP
-        _poolingManager.EnemiesPool.Release(this);
+        ExperiencePoint expPoint = ObjectsPoolingManager.Instance.ExpPool.Get();
+        expPoint.transform.position = transform.position;
+        ObjectsPoolingManager.Instance.EnemiesPool.Release(this);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -102,7 +126,7 @@ public class Enemy : Entity
     
     private void TouchPlayer()
     {
-        _player.TakeDamage(attackDamage);
+        _player.TakeDamage(_attackDamage);
         _timerImmunityPlayer = _timerMaxImmunityPlayer;
         _canDamagePlayer = false;
     }
@@ -122,6 +146,7 @@ public class Enemy : Entity
         if (_canDamagePlayer)
         {
             TouchPlayer();
+            
         }
     }
 }
