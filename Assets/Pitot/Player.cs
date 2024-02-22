@@ -6,10 +6,14 @@ public class Player : Entity
 {
     public static Player Instance;
 
-    public int exp;
-    public int level;
+   
     private float lastAttackTime;
-    
+    //Exp an Level
+    [SerializeField] AnimationCurve ExpCapCurve;
+    public int currentExp;
+    public int maxExp = 25;
+    public int currentLevel = 0 ;
+
     // Multiplier
     public float attackSpeedMultiplier = 1f;
     public float movementSpeedMultiplier = 1f;
@@ -35,25 +39,36 @@ public class Player : Entity
     }
     void Update()
     {
-
     }
-
-    public void GainExp(int amount)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        exp += amount;
+        IExperience Exp = collision.GetComponent<IExperience>();
+        if(Exp != null)
+        {
+            GainExp(Exp.GetExpAmount());
+            Destroy(collision.gameObject); 
+        }
+    }
+    public void GainExp(int Amount)
+    {
+        currentExp += Amount;
         CheckLevelUp();
     }
 
     private void CheckLevelUp()
     {
-        if (exp >= 10)
+        if (currentExp >= maxExp)
         {
-            level++;
-            exp = 0;
-            Debug.Log("Level Up! Current Level: " + level);
+            currentLevel++;
+            currentExp = currentExp-maxExp;
+            ChangeLevelCap();
+            Debug.Log("Level Up! Current Level: " + currentLevel);
         }
     }
-
+    private void ChangeLevelCap()
+    {
+        maxExp = (int)ExpCapCurve.Evaluate(currentLevel);
+    }
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);

@@ -13,7 +13,6 @@ public class FollowingEnemy : Enemy
     void Update()
     {
         Tick();
-        
         // Flip update
         _sprite.flipX = _player.transform.position.x < transform.position.x;
 

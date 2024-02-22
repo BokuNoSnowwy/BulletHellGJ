@@ -49,6 +49,7 @@ public class Enemy : Entity
 
         if (!_canDamagePlayer)
         {
+            
             _timerImmunityPlayer -= Time.deltaTime;
             if (_timerImmunityPlayer <= 0)
             {
@@ -73,7 +74,9 @@ public class Enemy : Entity
         //TODO Disable enemy controller
         //TODO Death animation 
         //TODO Drop XP
-        _poolingManager.EnemiesPool.Release(this);
+        ExperiencePoint expPoint = ObjectsPoolingManager.Instance.ExpPool.Get();
+        expPoint.transform.position = transform.position;
+        ObjectsPoolingManager.Instance.EnemiesPool.Release(this);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -122,6 +125,7 @@ public class Enemy : Entity
         if (_canDamagePlayer)
         {
             TouchPlayer();
+            
         }
     }
 }

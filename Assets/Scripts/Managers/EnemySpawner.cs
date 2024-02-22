@@ -82,10 +82,11 @@ public class EnemySpawner : MonoBehaviour
             }
             else
             {
-                _timerSpawnEnemyStream -= Time.deltaTime;
+                _timerSpawnEnemyStream -= Time.deltaTime;  
+               
                 if (_timerSpawnEnemyStream <= 0)
                 {
-                    _timerSpawnEnemyStream = Random.Range(_currentEnemyStream.timerMinSpawn, _currentEnemyStream.timerMaxSpawn);
+                   _timerSpawnEnemyStream = Random.Range(_currentEnemyStream.timerMinSpawn, _currentEnemyStream.timerMaxSpawn);
                     //Spawn Enemies Stream 
                     SpawnRandom(_currentEnemyStream.enemyTypeArray);
                 }
