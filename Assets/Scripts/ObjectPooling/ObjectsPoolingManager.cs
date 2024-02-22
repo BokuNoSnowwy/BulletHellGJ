@@ -123,7 +123,7 @@ public class ObjectsPoolingManager : MonoBehaviour
     // Enemy
     void OnReturnedEnemyToPool(Enemy enemy)
     {
-        enemy.gameObject.SetActive(false);
+        enemy?.gameObject.SetActive(false);
     }
     void OnReturnedExpToPool(ExperiencePoint exp)
     {
