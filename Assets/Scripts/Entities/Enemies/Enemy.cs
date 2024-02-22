@@ -53,7 +53,6 @@ public class Enemy : Entity
         gameObject.SetActive(true);
     }
 
-
     public void OnTakenFromPool()
     {
         /*
@@ -89,6 +88,7 @@ public class Enemy : Entity
     {
         //TODO Disable enemy controller
         //TODO Death animation 
+        Score.Instance.score++;
         ExperiencePoint expPoint = ObjectsPoolingManager.Instance.ExpPool.Get();
         expPoint.transform.position = transform.position;
         ObjectsPoolingManager.Instance.EnemiesPool.Release(this);
