@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8067b65939f14408fea24485e17151, type: 3}
   m_Name: FireRate
   m_EditorClassIdentifier: 
-  itemName: 
-  itemSprite: {fileID: 0}
-  itemDescription: 
+  itemName: Fire rate
+  itemSprite: {fileID: 21300000, guid: 97b49874aed4b43788d90720bf2b2023, type: 3}
+  itemDescription: +10% fire rate
   baseMaxLife: 0
   baseMovementSpeedMultiplier: 0
   baseProjectileDamageMultiplier: 0
