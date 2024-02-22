@@ -7,7 +7,9 @@ public class JoystickPlayerExample : MonoBehaviour
 {
     public float speed;
     public VariableJoystick variableJoystick;
-    public Rigidbody rb;
+    public Rigidbody2D rb;
+    public SpriteRenderer Sprite;
+    public Animator animator;
 
     public Transform rotationShooting;
     public void FixedUpdate()
@@ -26,12 +28,31 @@ public class JoystickPlayerExample : MonoBehaviour
         
         rb.velocity = movement;
 
+        if (moveHorizontal < 0)
+        {
+            Sprite.flipX = true;
+        }
+        else
+        {
+            Sprite.flipX = false;
+        }
+
+        if(moveHorizontal == 0 | moveVertical == 0)
+        {
+            animator.SetBool("Moov", false);
+        }
+        else
+        {
+            animator.SetBool("Moov", true);
+        }
         
         if (movement.magnitude > 0.1f)
         {
+            
             float angle = Mathf.Atan2(moveVertical, moveHorizontal) * Mathf.Rad2Deg;
             rotationShooting.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         }
+        
     }
 
     

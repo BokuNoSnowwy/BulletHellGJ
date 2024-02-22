@@ -25,8 +25,7 @@ public class FollowingShootingEnemy : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        Initialization();
-        _player = Player.Instance;
+        //Initialization();
     }
 
     // Update is called once per frame
@@ -37,7 +36,7 @@ public class FollowingShootingEnemy : Enemy
         // Flip update
         if (_player != null)
         {
-            _sprite.flipX = _player.transform.position.x < transform.position.x;
+            _spriteRenderer.flipX = _player.transform.position.x < transform.position.x;
         }
         
         Vector3 playerPos = _player.transform.position;
