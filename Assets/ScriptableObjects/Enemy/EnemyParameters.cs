@@ -13,5 +13,5 @@ public class EnemyParameters : ScriptableObject
     [Space(10)]
 
     [Header("Sprite")]
-    public Sprite Sprite;
+    public RuntimeAnimatorController SpritesAnimation;
 }

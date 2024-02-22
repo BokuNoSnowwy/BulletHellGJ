@@ -18,7 +18,7 @@ public class EnemyStream
     public float timerMinSpawn;
     public float timerMaxSpawn;
     
-    public GameObject[] enemyTypeArray;
+    public EnemyParameters[] enemyTypeArray;
 }
 
 [CreateAssetMenu(fileName = "EnemySpawner", menuName = "ScriptableObjects/EnemySpawnerSO", order = 1)]

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94e75812cddaa3547ba2acb9ffe1f698, type: 3}
-  m_Name: DefaultEnemyParameters
+  m_Name: Skeleton
   m_EditorClassIdentifier: 
   AttackDamage: 4
   Speed: 5
   MaxLife: 10
-  Sprite: {fileID: 172626504, guid: c4d2ccab0c2ad7e47853b6e31a7ac7c2, type: 3}
+  Sprite: {fileID: -2092964637, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}

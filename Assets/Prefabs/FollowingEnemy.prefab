@@ -103,9 +103,8 @@ MonoBehaviour:
   _maxLife: 10
   _movementSpeed: 1
   _spriteRenderer: {fileID: 3141988494543359027}
-  _xpPrefab: {fileID: 6107970664653693214, guid: d6343bb7932863145b4ac99dfa668c00, type: 3}
   _timerMaxImmunityPlayer: 0.1
-  _parameters: {fileID: 11400000, guid: ec7753252d71466448514aabe89e2da6, type: 2}
+  _parameters: {fileID: 0}
 --- !u!61 &5777831724512637808
 BoxCollider2D:
   m_ObjectHideFlags: 0

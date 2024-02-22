@@ -12,6 +12,8 @@ public class Enemy : Entity
 
     [SerializeField]
     protected SpriteRenderer _spriteRenderer;
+    [SerializeField]
+    protected Animator _animator;
 
     [SerializeField]
     private float _timerMaxImmunityPlayer;
@@ -27,8 +29,10 @@ public class Enemy : Entity
 
     [SerializeField] protected EnemyParameters _parameters;
 
-    protected void Initialization()
+    public void Initialization(EnemyParameters parameters)
     {
+        _parameters = parameters; 
+
         _gameManager = GameManager.Instance;
         _poolingManager = ObjectsPoolingManager.Instance;
         _gameState = _gameManager.GameState;
@@ -42,22 +46,20 @@ public class Enemy : Entity
             _life = _parameters.MaxLife;
             _attackDamage = _parameters.AttackDamage;
 
-            if (_parameters.Sprite != null)
-            {
-                if (_spriteRenderer == null)
-                {
-                    _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-                }
-                _spriteRenderer.sprite = _parameters.Sprite;
-            }
+            _animator.runtimeAnimatorController = _parameters.SpritesAnimation;
+          
         }
+
+        gameObject.SetActive(true);
     }
 
 
     public void OnTakenFromPool()
     {
-        Initialization();
+        /*
+        Initialization(parameters);
         gameObject.SetActive(true);
+        */
     }
 
     protected void Tick()
