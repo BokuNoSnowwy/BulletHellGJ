@@ -27,8 +27,8 @@ public class MenuManager : MonoBehaviour
     public void Play()
     {
         isMainMenuActive = false;
-        Debug.Log("launching : Playscene");
-        SceneManager.LoadScene("PlayScene");
+        Debug.Log("launching : GameLoop");
+        SceneManager.LoadScene("GameLoop");
     }
 
     public void Resume()
