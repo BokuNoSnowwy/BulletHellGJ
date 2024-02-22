@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5402627118508078188}
   - component: {fileID: 2769356968145897215}
-  - component: {fileID: 1641107418902064724}
   - component: {fileID: 8285897735360613565}
+  - component: {fileID: 2579486346349088633}
   m_Layer: 0
-  m_Name: Xp
-  m_TagString: Untagged
+  m_Name: Heal
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec6b13a5ffa52bc45b7eeb8e5f69c6a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eab87f10d2afa594c92ed3d29451b618, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1641107418902064724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6107970664653693214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85ebd92c2c5d3a94cbe9b18d5bdd697e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExpAmount: 5
 --- !u!61 &8285897735360613565
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
+--- !u!114 &2579486346349088633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6107970664653693214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f589c1bdf9448d34e95248146a90b486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
