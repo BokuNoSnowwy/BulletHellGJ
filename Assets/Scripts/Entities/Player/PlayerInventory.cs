@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
@@ -136,7 +137,9 @@ public class PlayerPassive
 public class PlayerInventory : MonoBehaviour
 {
     [Header("Items Array")]
-    [SerializeField] 
+    [SerializeField]
+    private WeaponPlayerSO _baseWeaponPlayer;
+    [SerializeField]
     private PlayerWeapon[] _playerWeaponArray;
     [SerializeField] 
     private PlayerPassive[] _playerPassiveArray;
@@ -152,7 +155,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-
+        AddWeaponToArray(_baseWeaponPlayer);
     }
 
     public void AddWeaponToArray(WeaponPlayerSO weaponSO)
@@ -176,13 +179,7 @@ public class PlayerInventory : MonoBehaviour
             if (CheckIfWeaponHasEmpty())
             {
                 _playerWeaponArray[_indexWeaponInventory] = new PlayerWeapon(weaponSO);
-                // Add max life 
-                int maxLife = GetTotalMaxLife();
-                if (maxLife != 0)
-                {
-                    Player.Instance.AddMaxLife(maxLife);
-                }
-                
+
                 _indexWeaponInventory++;
             }
             else
@@ -235,6 +232,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void DisplayUpgrades(UnityAction callbackClosePanel)
     {
+        GameManager.Instance.SetGameState(GameState.Pause);
         List<ItemPlayerSO> itemArray = new List<ItemPlayerSO>(_itemGame);
         
         ItemPlayerSO[] newItemArray = new ItemPlayerSO[3];
@@ -252,14 +250,14 @@ public class PlayerInventory : MonoBehaviour
             string itemDescription = newItemArray[i].itemDescription;
 
             //Check if item already in array, then 
-            if (newItemArray.GetType() == typeof(WeaponPlayerSO))
+            if (newItemArray[i].GetType() == typeof(WeaponPlayerSO))
             {
                 foreach (var playerWeapon in _playerWeaponArray)
                 {
                     if (playerWeapon.weaponPlayerSo == newItemArray[i])
                     {
                         itemName = playerWeapon.weaponPlayerSo.itemName + " Lvl " + playerWeapon.upgradeIndex + 1;
-                        itemDescription = playerWeapon.weaponPlayerSo.itemDescription;
+                        itemDescription = playerWeapon.weaponPlayerSo.weaponLevelArray[playerWeapon.upgradeIndex].upgradeDescription;
                     }
                 }
             }
@@ -269,8 +267,8 @@ public class PlayerInventory : MonoBehaviour
                 {
                     if (playerPassive.passivePlayerSo == newItemArray[i])
                     {
-                        itemName = playerPassive.passivePlayerSo.itemName + " Lvl " + playerPassive.upgradeIndex;
-                        itemDescription = playerPassive.passivePlayerSo.itemName;
+                        itemName = playerPassive.passivePlayerSo.itemName + " Lvl " + playerPassive.upgradeIndex + 1;
+                        itemDescription = playerPassive.passivePlayerSo.passiveLevelArray[playerPassive.upgradeIndex].upgradeDescription;
                     }
                 }
             }
@@ -280,8 +278,6 @@ public class PlayerInventory : MonoBehaviour
             int index = i;
             _itemChoiceArray[i].AddListenerButton(()=>
             {
-                Debug.LogError(newItemArray[index].GetType());
-                
                 if (newItemArray[index].GetType() == typeof(WeaponPlayerSO))
                 {
                     AddWeaponToArray((WeaponPlayerSO)newItemArray[index]);
@@ -290,7 +286,7 @@ public class PlayerInventory : MonoBehaviour
                 {
                     AddPassiveToArray((PassivePlayerSO)newItemArray[index]);
                 }
-                
+                GameManager.Instance.SetGameState(GameState.Game);
                 callbackClosePanel.Invoke();
             });
         }
@@ -358,12 +354,15 @@ public class PlayerInventory : MonoBehaviour
         float movementSpeedFromUpgrades = 0;
         foreach (var passive in _playerPassiveArray)
         {
-            totalMovementSpeed += passive.passivePlayerSo.baseMovementSpeedMultiplier;
-            if (passive.upgradeIndex != 0)
+            if (passive.passivePlayerSo != null)
             {
-                for (int i = 0; i < passive.upgradeIndex; i++)
+                totalMovementSpeed += passive.passivePlayerSo.baseMovementSpeedMultiplier;
+                if (passive.upgradeIndex != 0)
                 {
-                    movementSpeedFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].movementSpeedMultiplier;
+                    for (int i = 0; i < passive.upgradeIndex; i++)
+                    {
+                        movementSpeedFromUpgrades += passive.passivePlayerSo.passiveLevelArray[i].movementSpeedMultiplier;
+                    }
                 }
             }
         }

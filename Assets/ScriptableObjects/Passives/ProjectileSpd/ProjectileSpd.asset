@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8067b65939f14408fea24485e17151, type: 3}
   m_Name: ProjectileSpd
   m_EditorClassIdentifier: 
-  itemName: 
-  itemSprite: {fileID: 0}
-  itemDescription: 
+  itemName: DUCK
+  itemSprite: {fileID: 4153240674832713612, guid: 8a1f96c93a153e34a98b5f6dd6bbfebd, type: 3}
+  itemDescription: +10 projectile speed
   baseMaxLife: 0
   baseMovementSpeedMultiplier: 0
   baseProjectileDamageMultiplier: 0

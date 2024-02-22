@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0301d6d55e62b3849893e11d536fe1df, type: 3}
   m_Name: ProjectileScaleUpgrade_1
   m_EditorClassIdentifier: 
-  upgradeDescription: 
+  upgradeDescription: +10 bullet size
   maxLife: 0
   movementSpeedMultiplier: 0
   projectileDamageMultiplier: 0

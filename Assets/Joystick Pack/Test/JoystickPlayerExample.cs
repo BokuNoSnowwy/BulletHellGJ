@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,18 +13,30 @@ public class JoystickPlayerExample : MonoBehaviour
     public Animator animator;
 
     public Transform rotationShooting;
+
+    private PlayerInventory _playerInventory;
+
+    private void Start()
+    {
+        _playerInventory = GetComponent<PlayerInventory>();
+    }
+
     public void FixedUpdate()
     {
         //Vector3 direction = Vector3.up * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
 
         //transform.Translate(direction * speed * Time.deltaTime);
 
+        if (GameManager.Instance.GameState != GameState.Game)
+        {
+            return;
+        }
         
         float moveHorizontal = variableJoystick.Horizontal;
         float moveVertical = variableJoystick.Vertical;
 
-        
-        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0f) * speed;
+
+        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0f) * speed * _playerInventory.GetTotalPassiveMovementSpeedMultiplier();
 
         
         rb.velocity = movement;

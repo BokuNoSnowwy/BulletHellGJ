@@ -204,9 +204,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20f55093d871494c9052a119b350238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseWeaponPlayer: {fileID: 11400000, guid: c143c40e96dbcfc499f32ec23d7297c0, type: 2}
   _playerWeaponArray:
-  - weaponPlayerSo: {fileID: 11400000, guid: c143c40e96dbcfc499f32ec23d7297c0, type: 2}
-    timerShoot: 1.2
+  - weaponPlayerSo: {fileID: 0}
+    timerShoot: 0
     upgradeIndex: 0
   - weaponPlayerSo: {fileID: 0}
     timerShoot: 0
