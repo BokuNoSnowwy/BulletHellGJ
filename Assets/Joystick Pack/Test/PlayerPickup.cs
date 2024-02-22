@@ -6,6 +6,9 @@ public class PlayerPickup : MonoBehaviour
 {
     public float pickupRadius = 2f; // Le rayon de détection des objets ramassables
 
+    public Player player;
+   
+
     void Update()
     {
         // Détection des objets ramassables
@@ -41,6 +44,7 @@ public class PlayerPickup : MonoBehaviour
         // Par exemple, vous pouvez ajouter de l'XP au joueur ou restaurer sa santé
         Debug.Log("je suis du " + item.name);
 
+        
 
         Destroy(item);
     }
