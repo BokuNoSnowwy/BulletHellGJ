@@ -12,6 +12,12 @@ public class FollowingEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (_gameState == GameState.Pause)
+        {
+            Debug.LogError("LogEnemy");
+            return;
+        }
+        
         Tick();
         // Flip update
         _spriteRenderer.flipX = _player.transform.position.x < transform.position.x;

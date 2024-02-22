@@ -28,6 +28,8 @@ public class EnemySpawner : MonoBehaviour
 
     private const float POS_MAX_OFFSET = 1.05f;
     private const float POS_MIN_OFFSET = -0.05f;
+    
+    private GameState _gameState;
 
 
 
@@ -40,11 +42,12 @@ public class EnemySpawner : MonoBehaviour
         _currentEnemyWave = _enemyWaveOrderedArray[_indexSpawnWave];
         _currentEnemyStream = _enemyStreamOrderedArray[_indexSpawnStream];
         _timerSpawnEnemyStream = Random.Range(_currentEnemyStream.timerMinSpawn, _currentEnemyStream.timerMaxSpawn);
+        _gameManager.AddGameStateChangeListener(ChangeGameState);
     }
 
     void Update()
     {
-        if (_gameManager.GameState == GameState.Game)
+        if (_gameState == GameState.Game)
         {
             #region Waves Spawn
             if (_currentEnemyWave.timerSpawn <= _gameManager.TimerGame)
@@ -93,6 +96,11 @@ public class EnemySpawner : MonoBehaviour
             }
             #endregion
         }
+    }
+    
+    private void ChangeGameState(GameState gameState)
+    {
+        _gameState = gameState;
     }
 
     private void SetupOrderSpawnArray()

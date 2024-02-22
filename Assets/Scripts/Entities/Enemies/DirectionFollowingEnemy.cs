@@ -16,6 +16,12 @@ public class DirectionFollowingEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (_gameState == GameState.Pause)
+        {
+            Debug.LogError("LogEnemy");
+            return;
+        }
+        
         Tick();
 
         transform.Translate(_dirToFollow.normalized * _movementSpeed * Time.deltaTime);

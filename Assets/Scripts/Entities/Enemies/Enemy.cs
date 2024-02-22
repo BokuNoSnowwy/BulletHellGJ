@@ -23,7 +23,7 @@ public class Enemy : Entity
     protected Player _player;
     protected ObjectsPoolingManager _poolingManager;
     private GameManager _gameManager;
-    private GameState _gameState;
+    protected GameState _gameState;
 
     [SerializeField] protected EnemyParameters _parameters;
 
@@ -31,6 +31,7 @@ public class Enemy : Entity
     {
         _gameManager = GameManager.Instance;
         _poolingManager = ObjectsPoolingManager.Instance;
+        _gameState = _gameManager.GameState;
         _gameManager.AddGameStateChangeListener(ChangeGameState);
         _player = Player.Instance;
 
@@ -61,14 +62,8 @@ public class Enemy : Entity
 
     protected void Tick()
     {
-        if (_gameState != GameState.Game)
-        {
-            return;
-        }
-
         if (!_canDamagePlayer)
         {
-            
             _timerImmunityPlayer -= Time.deltaTime;
             if (_timerImmunityPlayer <= 0)
             {

@@ -149,7 +149,7 @@ public class PlayerInventory : MonoBehaviour
 
     [Header("XP Bonus")]
     [SerializeField]
-    private ItemPlayerSO[] _itemGame;
+    private List<ItemPlayerSO> _itemGame = new List<ItemPlayerSO>();
     [SerializeField]
     private ItemChoice[] _itemChoiceArray = new ItemChoice[3];
 
@@ -161,7 +161,6 @@ public class PlayerInventory : MonoBehaviour
     public void AddWeaponToArray(WeaponPlayerSO weaponSO)
     {
         PlayerWeapon playerWeapon = _playerWeaponArray.ToList().Find(weapon => weaponSO == weapon.weaponPlayerSo);
-        bool isWeaponsEmpty = CheckIfWeaponHasEmpty();
         if (playerWeapon != null)
         {
             // Upgrade
@@ -184,18 +183,34 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         
-        if (!isWeaponsEmpty)
+        if (!CheckIfWeaponHasEmpty())
         {
-            Debug.LogError(_itemGame.Length);
-            _itemGame.ToList().RemoveAll(passive => (PassivePlayerSO) passive == _playerPassiveArray.ToList().Find(playerPassive => playerPassive.passivePlayerSo != (PassivePlayerSO) passive).passivePlayerSo);
-            Debug.LogError(_itemGame.Length);
+            List<WeaponPlayerSO> listPlayerWeapon = GetPlayerWeapons();
+            List<WeaponPlayerSO> listWeapon = new List<WeaponPlayerSO>();
+
+            foreach (var item in _itemGame)
+            {
+                if (item.GetType() == typeof(WeaponPlayerSO))
+                {
+                    listWeapon.Add((WeaponPlayerSO) item);
+                }
+            }
+
+            foreach (var weaponPlayer in listPlayerWeapon)
+            {
+                listWeapon.Remove(weaponPlayer);
+            }
+            
+            foreach (var weapon in listWeapon)
+            {
+                _itemGame.Remove(weapon);
+            }
         }
     }
 
     public void AddPassiveToArray(PassivePlayerSO passiveSO)
     {
         PlayerPassive playerPassive = _playerPassiveArray.ToList().Find(passive => passiveSO == passive.passivePlayerSo);
-        bool isPassivesEmpty = CheckIfPassiveHasEmpty();
         if (playerPassive != null)
         {
             // Upgrade
@@ -210,7 +225,7 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             // Add new
-            if (isPassivesEmpty)
+            if (CheckIfPassiveHasEmpty())
             {
                 _playerPassiveArray[_indexPassiveInventory] = new PlayerPassive(passiveSO);
                 // Add max life 
@@ -225,20 +240,37 @@ public class PlayerInventory : MonoBehaviour
             
         }
 
-        if (!isPassivesEmpty)
+        if (!CheckIfPassiveHasEmpty())
         {
-            Debug.LogError(_itemGame.Length);
-            _itemGame.ToList().RemoveAll(passive => (PassivePlayerSO) passive == _playerPassiveArray.ToList().Find(playerPassive => playerPassive.passivePlayerSo != (PassivePlayerSO) passive).passivePlayerSo);
-            Debug.LogError(_itemGame.Length);
+            List<PassivePlayerSO> listPlayerPassives = GetPlayerPassives();
+            List<PassivePlayerSO> listPassives = new List<PassivePlayerSO>();
+
+            foreach (var item in _itemGame)
+            {
+                if (item.GetType() == typeof(PassivePlayerSO))
+                {
+                    listPassives.Add((PassivePlayerSO) item);
+                }
+            }
+
+            foreach (var passivePlayer in listPlayerPassives)
+            {
+                listPassives.Remove(passivePlayer);
+            }
+            
+            foreach (var passive in listPassives)
+            {
+                _itemGame.Remove(passive);
+            }
         }
     }
 
     public void DisplayUpgrades(UnityAction callbackClosePanel)
     {
-        GameManager.Instance.SetGameState(GameState.Pause);
         List<ItemPlayerSO> itemArray = new List<ItemPlayerSO>(_itemGame);
-        
-        ItemPlayerSO[] newItemArray = new ItemPlayerSO[3];
+
+        int newItemArrayCount = itemArray.Count >= 3 ? 3 : itemArray.Count;
+        ItemPlayerSO[] newItemArray = new ItemPlayerSO[newItemArrayCount];
 
         for (int i = 0; i < newItemArray.Length; i++)
         {
@@ -249,6 +281,18 @@ public class PlayerInventory : MonoBehaviour
         
         for (int i = 0; i < _itemChoiceArray.Length; i++)
         {
+            if ((i + 1) > newItemArray.Length)
+            {
+                for (int j = i; j < _itemChoiceArray.Length; j++)
+                {
+                    _itemChoiceArray[j].gameObject.SetActive(false);
+                }
+
+                return;
+            }
+            
+            _itemChoiceArray[i].gameObject.SetActive(true);
+            
             string itemName = newItemArray[i].itemName;
             string itemDescription = newItemArray[i].itemDescription;
 
@@ -295,11 +339,33 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void ResetInventory()
+    public bool IsItemGameEmpty()
     {
-        
+        return _itemGame.Count <= 0;
     }
 
+    private List<WeaponPlayerSO> GetPlayerWeapons()
+    {
+        List<WeaponPlayerSO> returnList = new List<WeaponPlayerSO>();
+        foreach (var weapon in _playerWeaponArray)
+        {
+            returnList.Add(weapon.weaponPlayerSo);
+        }
+
+        return returnList;
+    }
+
+    private List<PassivePlayerSO> GetPlayerPassives()
+    {
+        List<PassivePlayerSO> returnList = new List<PassivePlayerSO>();
+        foreach (var passive in _playerPassiveArray)
+        {
+            returnList.Add(passive.passivePlayerSo);
+        }
+
+        return returnList;
+    }
+    
     private bool CheckIfPassiveHasEmpty()
     {
         foreach (var passive in _playerPassiveArray)
