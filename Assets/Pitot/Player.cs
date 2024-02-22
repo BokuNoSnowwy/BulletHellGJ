@@ -14,8 +14,8 @@ public class Player : Entity
 
     //Life
     [Header("Life")]
-    public int maxHealth = 100;
-    public int currentHealth;
+   // public int maxHealth = 100;
+   // public int currentHealth;
     public HealthBar healthBar;
     
     [Header("XP Panel")] 
@@ -46,7 +46,7 @@ public class Player : Entity
         {
             _playerInventory = GetComponent<PlayerInventory>();
         }
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetMaxHealth((int)_maxLife);
     }
     void Update()
     {
@@ -92,7 +92,8 @@ public class Player : Entity
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        healthBar.SetHealth(currentHealth);
+        Debug.Log("Ouch");
+        healthBar.SetHealth((int)_life);
     }
 
     public void AddMaxLife(int maxLife)

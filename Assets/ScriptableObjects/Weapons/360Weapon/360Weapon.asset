@@ -21,7 +21,7 @@ MonoBehaviour:
   baseProjectileSpd: 2
   baseWeaponReloadTime: 2
   baseTimeBetweenShoot: 0
-  basePlayerProjectilePrefab: {fileID: 0}
+  basePlayerProjectilePrefab: {fileID: 2323562116905594707, guid: 291335ea41612d346b3b0c52847436cb, type: 3}
   weaponLevelArray:
   - {fileID: 11400000, guid: c27033eeef7df164e802780598282da4, type: 2}
   - {fileID: 11400000, guid: d023c7713b70c67439f81b1ce3dcfedb, type: 2}
