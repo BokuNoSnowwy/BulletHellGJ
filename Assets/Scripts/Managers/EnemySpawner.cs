@@ -107,8 +107,6 @@ public class EnemySpawner : MonoBehaviour
         CameraSide randomSide = (CameraSide) Random.Range(0, 4);
         float randomPercentageSide = Random.Range(0, 101);
         
-        // TODO Spawn Enemy
-        Debug.Log("Spawn Prefab " + randomEnemy + " to " + randomSide + " percentage : " + randomPercentageSide);
         Enemy enemy = ObjectsPoolingManager.Instance.EnemiesPool.Get();
         Vector3 enemySpawnPosition = new Vector3(0,0, _camera.nearClipPlane);
         switch (randomSide)
