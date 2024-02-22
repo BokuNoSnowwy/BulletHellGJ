@@ -14,6 +14,11 @@ public class Player : Entity
     public int maxExp = 25;
     public int currentLevel = 0 ;
 
+    //Life
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+
     // Multiplier
     public float attackSpeedMultiplier = 1f;
     public float movementSpeedMultiplier = 1f;
@@ -36,6 +41,7 @@ public class Player : Entity
     void Start()
     {
         _gameManager = GameManager.Instance;
+        healthBar.SetMaxHealth(maxHealth);
     }
     void Update()
     {
@@ -72,6 +78,7 @@ public class Player : Entity
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        healthBar.SetHealth(currentHealth);
     }
 
     public void AddMaxLife(int maxLife)
