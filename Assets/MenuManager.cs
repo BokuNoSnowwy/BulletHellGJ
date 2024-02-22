@@ -31,12 +31,6 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("GameLoop");
     }
 
-    public void Retry()
-    {
-        //Debug.Log("launching : GameLoop");
-        SceneManager.LoadScene("GameLoop");
-    }
-
     public void Resume()
     {
         pauseMenu.SetActive(false);
