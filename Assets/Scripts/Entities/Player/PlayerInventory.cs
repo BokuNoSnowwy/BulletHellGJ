@@ -169,7 +169,11 @@ public class PlayerInventory : MonoBehaviour
             //Check fully upgraded
             if (playerWeapon.upgradeIndex >= playerWeapon.weaponPlayerSo.weaponLevelArray.Length)
             {
-                _itemGame.ToList().Remove(playerWeapon.weaponPlayerSo);
+                _itemGame.Remove(playerWeapon.weaponPlayerSo);
+                if (_itemGame.Count == 0)
+                {
+                    return;
+                }
             }
         }
         else
@@ -219,7 +223,11 @@ public class PlayerInventory : MonoBehaviour
             //Check fully upgraded
             if (playerPassive.upgradeIndex >= playerPassive.passivePlayerSo.passiveLevelArray.Length)
             {
-                _itemGame.ToList().Remove(playerPassive.passivePlayerSo);
+                _itemGame.Remove(playerPassive.passivePlayerSo);
+                if (_itemGame.Count == 0)
+                {
+                    return;
+                }
             }
         }
         else
