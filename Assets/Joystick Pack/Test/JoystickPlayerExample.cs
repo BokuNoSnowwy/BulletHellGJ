@@ -33,10 +33,10 @@ public class JoystickPlayerExample : MonoBehaviour
 
         //transform.Translate(direction * speed * Time.deltaTime);
 
-        if (_gameState == GameState.Pause)
-        {
-            return;
-        }
+        // if (_gameState == GameState.Pause)
+        // {
+        //     return;
+        // }
         
         float moveHorizontal = variableJoystick.Horizontal;
         float moveVertical = variableJoystick.Vertical;
