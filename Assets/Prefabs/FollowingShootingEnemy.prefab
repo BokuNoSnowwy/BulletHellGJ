@@ -104,7 +104,7 @@ MonoBehaviour:
   _movementSpeed: 1.5
   _spriteRenderer: {fileID: 1922147551264175457}
   _animator: {fileID: 815361086028199888}
-  _timerMaxImmunityPlayer: 0.1
+  _timerMaxImmunityPlayer: 1
   _parameters: {fileID: 0}
   _projectilePrefab: {fileID: 599466651576664928, guid: e26065c2903c86d4d9b7f3f2fb5f7b71, type: 3}
   _projectileDmg: 3

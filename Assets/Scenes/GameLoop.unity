@@ -1082,6 +1082,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3345367293837109684, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345367293837109684, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345367293837109684, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345367293837109684, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345367293837109684, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3429178684651644046, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1166,6 +1186,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6281350000640802942, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801805217857309951, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7151590858393200635, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1173,6 +1201,14 @@ PrefabInstance:
     - target: {fileID: 7151590858393200635, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223423921451425426, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397695684623024073, guid: 3328fb141dc75014eb975b07ab98285b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
