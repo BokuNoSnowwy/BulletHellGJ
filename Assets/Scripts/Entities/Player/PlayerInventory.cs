@@ -30,7 +30,7 @@ public class PlayerWeapon
     public int GetTotalProjectiles()
     {
         int projectilesFromUpgrades = 0;
-        if (upgradeIndex != 0)
+        if (upgradeIndex != 0 && upgradeIndex < 4)
         {
             for (int i = 0; i < upgradeIndex; i++)
             {
@@ -44,7 +44,7 @@ public class PlayerWeapon
     public float GetTotalProjectileDamage()
     {
         float projectileDmgFromUpgrades = 0;
-        if (upgradeIndex != 0)
+        if (upgradeIndex != 0 && upgradeIndex > 4)
         {
             for (int i = 0; i < upgradeIndex; i++)
             {
@@ -304,7 +304,10 @@ public class PlayerInventory : MonoBehaviour
                     if (playerWeapon.weaponPlayerSo == newItemArray[i])
                     {
                         itemName = playerWeapon.weaponPlayerSo.itemName + " Lvl " + (playerWeapon.upgradeIndex + 1);
-                        itemDescription = playerWeapon.weaponPlayerSo.weaponLevelArray[playerWeapon.upgradeIndex].upgradeDescription;
+                        if(playerWeapon.upgradeIndex < playerWeapon.weaponPlayerSo.weaponLevelArray.Length)
+                        {
+                            itemDescription = playerWeapon.weaponPlayerSo.weaponLevelArray[playerWeapon.upgradeIndex].upgradeDescription;
+                        }
                     }
                 }
             }
